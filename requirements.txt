@@ -8,3 +8,5 @@ anthropic>=0.34
 jinja2>=3.1
 pdfplumber>=0.11          # CV-Parsing PDF
 python-docx>=1.1          # CV-Parsing Word
+pip-system-certs>=4.0     # nutzt Windows-Zertifikatsspeicher statt eigenem Bundle,
+                           # nötig hinter Firmen-Firewalls/Antivirus mit TLS-Inspection
