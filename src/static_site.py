@@ -31,9 +31,19 @@ def person_page_url(base_pages_url: str, person_name: str) -> str:
     return f"{base}{slugify(person_name)}/"
 
 
-def update_static_site(person_name: str, jobs: list[JobPosting]) -> None:
+def update_static_site(
+    person_name: str,
+    jobs: list[JobPosting],
+    sync_api_url: str | None = None,
+    sync_api_token: str | None = None,
+) -> None:
     """Fügt neue Jobs zur bestehenden Liste dieser Person hinzu (kein
     Duplikat nach id) und schreibt/aktualisiert die zugehörige Unterseite.
+
+    sync_api_url/sync_api_token: optionale, PRO PERSON eigene Google-Apps-Script-
+    Bereitstellung für die geräteübergreifende Synchronisation (siehe
+    sheets-backend/SETUP.md). Ohne diese Werte bleiben Markierungen nur im
+    Browser der Person (localStorage).
 
     TODO: alte Einträge irgendwann aufräumen (z.B. > 90 Tage), damit die
     Seite nicht unbegrenzt wächst — sent_jobs.db (dedup.py) hat den
@@ -67,5 +77,7 @@ def update_static_site(person_name: str, jobs: list[JobPosting]) -> None:
     jobs_path.write_text(json.dumps(existing, ensure_ascii=False, indent=2), encoding="utf-8")
 
     template = Template(PAGE_TEMPLATE_PATH.read_text(encoding="utf-8"))
-    html = template.render(person_name=person_name)
+    html = template.render(
+        person_name=person_name, sync_api_url=sync_api_url, sync_api_token=sync_api_token
+    )
     (person_dir / "index.html").write_text(html, encoding="utf-8")

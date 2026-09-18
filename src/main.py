@@ -68,7 +68,12 @@ def process_person(person_cfg: dict, dry_run: bool) -> None:
         return
 
     send_digest(person_cfg["email"], name, to_send)
-    update_static_site(name, to_send)
+    update_static_site(
+        name,
+        to_send,
+        sync_api_url=person_cfg.get("sheets_sync_url"),
+        sync_api_token=person_cfg.get("sheets_sync_token"),
+    )
     for job in to_send:
         mark_sent(name, job.id, job.source)
 

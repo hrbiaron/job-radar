@@ -99,12 +99,12 @@
 // ---- Konfiguration: nach dem Deployment des Apps-Script-Backends ausfüllen ----
 // siehe sheets-backend/SETUP.md
 const SYNC_CONFIG = {
-  apiUrl: "PASTE_APPS_SCRIPT_URL_HIER",   // endet auf /exec
-  apiToken: "PASTE_SECRET_HIER",
+  apiUrl: {{ sync_api_url | default("", true) | tojson }},   // endet auf /exec
+  apiToken: {{ sync_api_token | default("", true) | tojson }},
 };
 
 function syncConfigured() {
-  return SYNC_CONFIG.apiUrl && !SYNC_CONFIG.apiUrl.startsWith("PASTE_");
+  return !!SYNC_CONFIG.apiUrl;
 }
 
 const STORAGE_KEY = "job-radar-state";
