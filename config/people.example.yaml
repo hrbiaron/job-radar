@@ -1,0 +1,25 @@
+# Eine Person = ein Eintrag. Beliebig erweiterbar.
+
+- name: "Schwester"
+  email: "schwester@example.com"
+  cv_path: "data/profiles/schwester_cv.pdf"
+  survey_path: "data/profiles/schwester_survey.json"
+  min_score: 70          # nur Jobs ab diesem Match-Score werden verschickt
+  include_maybe_zone: false   # true = auch 50-69 Punkte als "vielleicht" mitschicken
+  search:
+    was: "Projektmanagement"      # Freitext Jobtitel/Suchbegriff
+    wo: "München"                 # Ort
+    umkreis_km: 40
+    arbeitszeit: ["vollzeit", "teilzeit"]
+
+- name: "Frau"
+  email: "frau@example.com"
+  cv_path: "data/profiles/frau_cv.pdf"
+  survey_path: "data/profiles/frau_survey.json"
+  min_score: 65
+  include_maybe_zone: true      # bei Richtungswechsel bewusst breiter suchen
+  search:
+    was: ""                       # leer lassen bei offener Richtungswechsel-Suche
+    wo: "Köln"
+    umkreis_km: 50
+    arbeitszeit: ["vollzeit"]

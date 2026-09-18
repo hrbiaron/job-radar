@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de">
+<head><meta charset="utf-8"></head>
+<body style="font-family: Arial, sans-serif; color: #222;">
+  <p>Hallo {{ person_name }},</p>
+  {% if job_count == 1 %}
+  <p>es gibt <strong>einen neuen Jobvorschlag</strong> für dich.</p>
+  {% else %}
+  <p>es gibt <strong>{{ job_count }} neue Jobvorschläge</strong> für dich.</p>
+  {% endif %}
+  <p>
+    <a href="{{ pages_url }}" style="display:inline-block; padding: 10px 18px; background:#a56342;
+       color:#fff; border-radius: 8px; text-decoration:none;">Jetzt ansehen</a>
+  </p>
+  <p style="font-size: 0.8em; color: #999;">
+    Diese Jobs werden dir dort nicht noch einmal neu markiert vorgeschlagen.
+  </p>
+</body>
+</html>

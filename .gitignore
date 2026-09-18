@@ -1,0 +1,17 @@
+.env
+venv/
+__pycache__/
+*.pyc
+data/sent_jobs.db
+data/profiles/*.json
+!data/profiles/.gitkeep
+data/profiles/*.pdf
+data/profiles/*.docx
+data/profiles/*.doc
+data/pending_scores/*.json
+!data/pending_scores/.gitkeep
+data/scored/*.json
+!data/scored/.gitkeep
+
+# echte Namen/E-Mails der Personen — nur lokal, nicht auf GitHub
+config/people.yaml

@@ -1,0 +1,41 @@
+name: Daily Job Scan
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # täglich 06:00 UTC = 08:00 Uhr MESZ
+  workflow_dispatch: {}    # manuelles Auslösen zum Testen
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Playwright installieren
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Job-Scan ausführen
+        env:
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+        run: python -m src.main
+
+      - name: sent_jobs.db und docs/jobs.json committen
+        run: |
+          git config user.name "job-radar-bot"
+          git config user.email "bot@example.com"
+          git add data/sent_jobs.db docs/jobs.json
+          git diff --staged --quiet || git commit -m "Update job data"
+          git push
