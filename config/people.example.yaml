@@ -11,6 +11,11 @@
     wo: "München"                 # Ort
     umkreis_km: 40
     arbeitszeit: ["vollzeit", "teilzeit"]
+  # Optional: geräteübergreifende Synchronisation der "interessant"/"ausblenden"-
+  # Markierungen auf der GitHub-Pages-Seite dieser Person, siehe sheets-backend/SETUP.md.
+  # Ohne diese beiden Zeilen bleiben Markierungen nur im Browser der Person.
+  # sheets_sync_url: "https://script.google.com/macros/s/.../exec"
+  # sheets_sync_token: "eigenes-langes-zufalls-secret"
 
 - name: "Frau"
   email: "frau@example.com"
