@@ -1,7 +1,7 @@
 requests>=2.31
 beautifulsoup4>=4.12
 lxml>=5.0
-playwright>=1.45          # nur falls JS-Rendering nötig (z.B. Kununu)
+playwright>=1.45          # für Indeed nötig (Bot-Schutz blockt requests), ggf. auch Kununu
 pyyaml>=6.0
 python-dotenv>=1.0
 anthropic>=0.34

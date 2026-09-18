@@ -23,9 +23,6 @@ def search_jobs(was: str, wo: str, umkreis_km: int = 25, size: int = 50) -> list
 
     TODO:
       - Pagination beachten (Parameter `page`), falls mehr als `size` Treffer
-      - Antwortstruktur (`stellenangebote`) gegen aktuelle API-Antwort prüfen,
-        Feldnamen können sich leicht unterscheiden -> print(response.json())
-        beim ersten Testlauf zur Kontrolle
       - Details je Treffer per /pc/v4/jobdetails/{base64(refnr)} nachladen,
         falls die Beschreibung aus der Suche zu knapp ist
     """
@@ -35,16 +32,17 @@ def search_jobs(was: str, wo: str, umkreis_km: int = 25, size: int = 50) -> list
     data = response.json()
 
     jobs: list[JobPosting] = []
-    for item in data.get("stellenangebote", []):
+    for item in data.get("ergebnisliste", []):
+        locations = item.get("stellenlokationen") or [{}]
         jobs.append(
             JobPosting(
-                id=item.get("refnr", ""),
+                id=item.get("referenznummer", ""),
                 source="ba_jobsuche",
-                title=item.get("titel", ""),
-                company=item.get("arbeitgeber", ""),
-                location=item.get("arbeitsort", {}).get("ort", ""),
-                url=f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{item.get('refnr', '')}",
-                description=item.get("beruf", ""),  # TODO: durch Volltext ersetzen
+                title=item.get("stellenangebotsTitel", ""),
+                company=item.get("firma", ""),
+                location=locations[0].get("adresse", {}).get("ort", ""),
+                url=f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{item.get('referenznummer', '')}",
+                description=item.get("hauptberuf", ""),  # TODO: durch Volltext ersetzen
             )
         )
     return jobs

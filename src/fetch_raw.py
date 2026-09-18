@@ -14,21 +14,11 @@ from dotenv import load_dotenv
 
 from .dedup import already_sent
 from .matching.profile_builder import build_profile
-from .sources import adzuna, ba_jobsuche, indeed_scraper, stepstone_scraper
+from .sources import collect_jobs
 
 load_dotenv()
 
 PENDING_DIR = Path("data/pending_scores")
-
-
-def collect_jobs(search_cfg: dict) -> list:
-    """Siehe main.py — identische Logik, hier nur ohne den Scoring-Aufruf."""
-    jobs = []
-    jobs += ba_jobsuche.search_jobs(search_cfg["was"], search_cfg["wo"], search_cfg["umkreis_km"])
-    jobs += adzuna.search_jobs(search_cfg["was"], search_cfg["wo"])
-    jobs += stepstone_scraper.search_jobs(search_cfg["was"], search_cfg["wo"])
-    jobs += indeed_scraper.search_jobs(search_cfg["was"], search_cfg["wo"])
-    return jobs
 
 
 def main() -> None:

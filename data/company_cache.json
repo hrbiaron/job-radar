@@ -1,1 +1,11 @@
-{}
+{
+  "Siemens": {
+    "fetched_at": 1789762950.875851,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  }
+}

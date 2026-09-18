@@ -15,24 +15,10 @@ from .emailer import send_digest
 from .enrich.kununu_scraper import get_company_info
 from .matching.profile_builder import build_profile
 from .matching.scorer import score_job
-from .sources import adzuna, ba_jobsuche, indeed_scraper, stepstone_scraper
+from .sources import collect_jobs
 from .static_site import update_static_site
 
 load_dotenv()
-
-
-def collect_jobs(search_cfg: dict) -> list:
-    """Fragt alle Quellen ab und gibt eine gemeinsame Liste zurück.
-
-    TODO: Fehler einer einzelnen Quelle (z.B. Scraper down) dürfen die
-    anderen Quellen nicht blockieren -> pro Quelle try/except mit Logging.
-    """
-    jobs = []
-    jobs += ba_jobsuche.search_jobs(search_cfg["was"], search_cfg["wo"], search_cfg["umkreis_km"])
-    jobs += adzuna.search_jobs(search_cfg["was"], search_cfg["wo"])
-    jobs += stepstone_scraper.search_jobs(search_cfg["was"], search_cfg["wo"])
-    jobs += indeed_scraper.search_jobs(search_cfg["was"], search_cfg["wo"])
-    return jobs
 
 
 def process_person(person_cfg: dict, dry_run: bool) -> None:
