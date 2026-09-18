@@ -24,6 +24,13 @@ CACHE_TTL_SECONDS = 90 * 24 * 3600
 SEARCH_URL = "https://www.kununu.com/de/search?q={query}"
 
 
+def kununu_search_url(company_name: str) -> str:
+    """Link zur Kununu-Suche für eine Firma — zum manuellen Nachschauen per Klick,
+    kein automatischer Abruf (siehe get_company_info-Docstring, warum wir hier
+    keine Daten scrapen)."""
+    return SEARCH_URL.format(query=quote(company_name))
+
+
 def _load_cache() -> dict:
     if CACHE_PATH.exists():
         return json.loads(CACHE_PATH.read_text())

@@ -10,6 +10,7 @@ from pathlib import Path
 
 from jinja2 import Template
 
+from .enrich.kununu_scraper import kununu_search_url
 from .sources.base import JobPosting
 
 DOCS_DIR = Path("docs")
@@ -71,6 +72,7 @@ def update_static_site(
                 "kununu_rating": job.company_rating,
                 "kununu_recommend_pct": job.company_recommend_pct,
                 "kununu_review_count": job.company_review_count,
+                "kununu_url": kununu_search_url(job.company),
             }
         )
 

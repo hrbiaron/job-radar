@@ -63,10 +63,11 @@
     font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border);
     padding-top: 8px; margin-top: 8px;
   }
-  .actions { display: flex; gap: 8px; margin-top: 12px; }
-  button.act {
+  .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .act {
     font-size: 0.82rem; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border);
-    background: var(--bg); color: var(--text); cursor: pointer;
+    background: var(--bg); color: var(--text); cursor: pointer; text-decoration: none;
+    display: inline-block;
   }
   button.active-like { background: var(--good-bg); color: var(--good); border-color: transparent; }
   button.active-hide { background: var(--border); }
@@ -193,6 +194,7 @@ function render() {
         <button class="act ${s.hidden ? 'active-hide' : ''}" data-action="hide" data-id="${job.id}">
           ${s.hidden ? "Wieder einblenden" : "Ausblenden"}
         </button>
+        ${job.kununu_url ? `<a class="act" href="${job.kununu_url}" target="_blank" rel="noopener">Kununu ansehen ↗</a>` : ""}
       </div>
     `;
     list.appendChild(div);
