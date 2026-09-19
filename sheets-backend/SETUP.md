@@ -1,12 +1,11 @@
-# Setup: getrennte Google Sheets für Schwester und Frau
+# Setup: getrennte Google Sheets pro Person
 
 Jede Person bekommt ihr eigenes Sheet, ihre eigene Apps-Script-Bereitstellung,
 ihre eigene URL und ihr eigenes Secret. **Diese Schritte einmal pro Person
-wiederholen** (also zweimal insgesamt):
+wiederholen:**
 
 1. **Google Sheet erstellen** – neues, leeres Sheet, z.B. "Job-Radar-Sync
-   Schwester" bzw. "Job-Radar-Sync Frau" nennen. Kein Tabellenkopf nötig,
-   das Skript legt ihn selbst an.
+   <Name>" nennen. Kein Tabellenkopf nötig, das Skript legt ihn selbst an.
 2. **Apps Script öffnen** – *Erweiterungen → Apps Script*, Inhalt von
    `Code.gs` (dieser Ordner) reinkopieren. `SECRET` durch ein eigenes,
    langes Zufalls-Passwort ersetzen (für jede Person ein anderes!).
@@ -14,16 +13,29 @@ wiederholen** (also zweimal insgesamt):
    Typ "Web-App" → "Ausführen als: Ich" → "Zugriff: Jeder" → bereitstellen,
    Berechtigungen bestätigen.
 4. **Web-App-URL notieren** – die angezeigte URL (endet auf `/exec`) zusammen
-   mit dem Secret irgendwo festhalten, bis beide Personen durch sind.
-5. Nach beiden Durchläufen: in `docs/index.html` den `PERSON_CONFIG`-Block
-   ausfüllen — pro Personenname (muss exakt zum Namen in
-   `config/people.yaml` passen) die jeweilige URL + Secret eintragen.
-6. **Testen** – Seite neu laden, Person auswählen, einen Job als
-   "interessant" markieren, im zugehörigen Sheet prüfen, ob eine neue Zeile
-   erscheint. Dann die andere Person testen — beide Sheets müssen unabhängig
-   bleiben.
-7. **Committen & pushen** – geänderte `docs/index.html` committen,
-   GitHub Pages übernimmt automatisch.
+   mit dem Secret festhalten.
+5. In `config/people.yaml` beim jeweiligen Personen-Eintrag `sheets_sync_url`
+   und `sheets_sync_token` eintragen (siehe `config/people.example.yaml` für
+   die Struktur). Diese Werte werden bei jedem Lauf automatisch in die
+   generierte `docs/<slug>/index.html` dieser Person eingebaut
+   (`src/static_site.py`) — keine manuelle HTML-Bearbeitung nötig.
+6. **Testen** – nach dem nächsten Lauf (`python -m src.finish_run` bzw. über
+   die Skill) die Seite der Person öffnen, einen Job einen Status geben
+   (z.B. "Interesse"), im zugehörigen Sheet prüfen, ob eine neue Zeile mit
+   `status`/`comment` erscheint.
+
+## Schema ändern (z.B. nach einem Update von `Code.gs`)
+
+Wurde `Code.gs` in diesem Repo geändert (z.B. neue Spalten), muss **jede**
+bereits bereitgestellte Person manuell aktualisiert werden — ein Push hier
+aktualisiert die laufenden Google-Apps-Script-Bereitstellungen nicht
+automatisch:
+
+1. Google Sheet der Person öffnen → *Erweiterungen → Apps Script*
+2. Alten Inhalt löschen, neuen `Code.gs`-Inhalt reinkopieren (`SECRET`
+   unverändert lassen, sonst bricht die bestehende URL)
+3. *Bereitstellen → Bereitstellungen verwalten* → Stift-Symbol bei der
+   bestehenden Bereitstellung → Version: "Neue Version" → Bereitstellen
 
 ## Sicherheitshinweis
 
