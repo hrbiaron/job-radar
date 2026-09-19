@@ -108,20 +108,22 @@
     max-height: 260px; overflow-y: auto; padding-right: 4px;
   }
   .detail-description-hint { font-size: 0.82rem; color: var(--text-muted); font-style: italic; }
-  .comment-box textarea { width: 100%; min-height: 64px; resize: vertical; font-size: 0.88rem; }
   .comment-toolbar { display: flex; gap: 4px; margin-bottom: 6px; }
   .fmt-btn {
     font-size: 0.8rem; width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--border);
     background: var(--bg); color: var(--text); cursor: pointer;
   }
-  .comment-preview {
-    margin-top: 8px; padding: 8px 10px; border: 1px dashed var(--border); border-radius: 8px;
-    font-size: 0.85rem; line-height: 1.4; color: var(--text-muted); min-height: 20px;
+  .fmt-btn.active { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+  .comment-editor {
+    width: 100%; min-height: 64px; border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 10px; font-size: 0.88rem; line-height: 1.4; background: var(--card-bg); color: var(--text);
+    font-family: inherit; outline: none;
   }
-  .comment-preview:empty::before { content: "Vorschau erscheint hier..."; font-style: italic; opacity: 0.7; }
-  .comment-preview p { margin: 0 0 6px; }
-  .comment-preview p:last-child { margin-bottom: 0; }
-  .comment-preview ul { margin: 0 0 6px; padding-left: 20px; }
+  .comment-editor:focus { border-color: var(--accent); }
+  .comment-editor:empty::before { content: attr(data-placeholder); color: var(--text-muted); }
+  .comment-editor p { margin: 0 0 6px; }
+  .comment-editor p:last-child { margin-bottom: 0; }
+  .comment-editor ul { margin: 0 0 6px; padding-left: 20px; }
   .comment-display {
     font-size: 0.85rem; line-height: 1.4; color: var(--text-muted); margin-top: 10px;
     padding: 8px 10px; background: var(--bg); border-radius: 8px;
@@ -234,32 +236,35 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-// Einfache Markdown-ähnliche Formatierung für Kommentare: **fett**, *kursiv*,
-// Zeilen mit "- " als Liste. Text wird zuerst escaped, erst danach werden die
-// Formatierungs-Tags eingefügt — kein XSS-Risiko durch Nutzereingaben.
-function inlineFormat(escapedText) {
-  return escapedText
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/(?<!\*)\*([^*]+?)\*(?!\*)/g, "<em>$1</em>");
-}
+// Kommentare werden als echtes (aber eingeschränktes) HTML gespeichert, das
+// Bearbeitungsfeld ist ein contenteditable-Element mit Werkzeugleiste — wie in
+// den meisten anderen Tools (Word, Gmail, ...), kein Markdown-Sternchen-Syntax.
+// Nur eine kleine, feste Menge an Tags ist erlaubt, alle Attribute werden
+// entfernt — sowohl beim Speichern als auch beim Anzeigen (falls jemand die
+// Google-Sheet-Zelle von Hand mit HTML befüllt).
+const ALLOWED_COMMENT_TAGS = new Set(["B", "STRONG", "I", "EM", "UL", "OL", "LI", "BR", "P", "DIV"]);
 
-function renderMarkdown(raw) {
-  if (!raw) return "";
-  const lines = escapeHtml(raw).split("\n");
-  let html = "";
-  let inList = false;
-  for (const line of lines) {
-    const listMatch = line.match(/^[-*]\s+(.*)/);
-    if (listMatch) {
-      if (!inList) { html += "<ul>"; inList = true; }
-      html += `<li>${inlineFormat(listMatch[1])}</li>`;
-      continue;
-    }
-    if (inList) { html += "</ul>"; inList = false; }
-    if (line.trim() !== "") html += `<p>${inlineFormat(line)}</p>`;
+function sanitizeCommentHtml(html) {
+  const template = document.createElement("template");
+  template.innerHTML = html || "";
+
+  function clean(node) {
+    [...node.childNodes].forEach(child => {
+      if (child.nodeType === Node.ELEMENT_NODE) {
+        if (!ALLOWED_COMMENT_TAGS.has(child.tagName)) {
+          while (child.firstChild) node.insertBefore(child.firstChild, child);
+          node.removeChild(child);
+          return;
+        }
+        [...child.attributes].forEach(attr => child.removeAttribute(attr.name));
+        clean(child);
+      } else if (child.nodeType !== Node.TEXT_NODE) {
+        node.removeChild(child); // Kommentare, etc.
+      }
+    });
   }
-  if (inList) html += "</ul>";
-  return html;
+  clean(template.content);
+  return template.innerHTML;
 }
 
 const SOURCE_LABELS = { ba_jobsuche: "BA-Jobsuche", adzuna: "Adzuna", stepstone: "StepStone", indeed: "Indeed" };
@@ -380,15 +385,16 @@ function render() {
           ${s.comment ? "Kommentar bearbeiten" : "Kommentar hinzufügen"}
         </button>
       </div>
-      ${s.comment ? `<div class="comment-display">${renderMarkdown(s.comment)}</div>` : ""}
+      ${s.comment ? `<div class="comment-display">${sanitizeCommentHtml(s.comment)}</div>` : ""}
       <div class="comment-box" id="comment-box-${job.id}">
         <div class="comment-toolbar">
-          <button type="button" class="fmt-btn" data-action="fmt-bold" data-id="${job.id}" title="Fett"><strong>F</strong></button>
-          <button type="button" class="fmt-btn" data-action="fmt-italic" data-id="${job.id}" title="Kursiv"><em>K</em></button>
-          <button type="button" class="fmt-btn" data-action="fmt-list" data-id="${job.id}" title="Liste">☰</button>
+          <button type="button" class="fmt-btn" data-action="fmt-bold" data-id="${job.id}" title="Fett (Strg+B)"><strong>F</strong></button>
+          <button type="button" class="fmt-btn" data-action="fmt-italic" data-id="${job.id}" title="Kursiv (Strg+I)"><em>K</em></button>
+          <button type="button" class="fmt-btn" data-action="fmt-list" data-id="${job.id}" title="Aufzählungsliste">☰</button>
         </div>
-        <textarea data-id="${job.id}" placeholder="z.B. Notizen zum Interview, was dir an der Stelle auffällt... (**fett**, *kursiv*, Zeilen mit &quot;- &quot; für Liste)">${s.comment || ""}</textarea>
-        <div class="comment-preview" id="comment-preview-${job.id}">${renderMarkdown(s.comment || "")}</div>
+        <div class="comment-editor" contenteditable="true" data-id="${job.id}"
+             data-placeholder="z.B. Notizen zum Interview, was dir an der Stelle auffällt..."
+        >${sanitizeCommentHtml(s.comment || "")}</div>
         <div class="comment-save">
           <button class="act" data-action="save-comment" data-id="${job.id}">Speichern</button>
           <span class="comment-saved-hint" id="comment-saved-${job.id}">Gespeichert ✓</span>
@@ -444,9 +450,9 @@ document.addEventListener("click", (e) => {
   const saveBtn = e.target.closest("button[data-action='save-comment']");
   if (saveBtn) {
     const id = saveBtn.dataset.id;
-    const textarea = document.querySelector(`.comment-box textarea[data-id="${id}"]`);
+    const editor = document.querySelector(`.comment-editor[data-id="${id}"]`);
     state[id] = state[id] || {};
-    state[id].comment = textarea.value;
+    state[id].comment = sanitizeCommentHtml(editor.innerHTML);
     saveLocalState();
     pushRemoteState(id, state[id].status || "", state[id].comment || "");
     const hint = document.getElementById(`comment-saved-${id}`);
@@ -457,19 +463,21 @@ document.addEventListener("click", (e) => {
   }
   const fmtBtn = e.target.closest(".fmt-btn");
   if (fmtBtn) {
+    e.preventDefault(); // Fokus im contenteditable-Feld darf nicht verloren gehen
     const id = fmtBtn.dataset.id;
-    const textarea = document.querySelector(`.comment-box textarea[data-id="${id}"]`);
-    const action = fmtBtn.dataset.action;
-    if (action === "fmt-bold") wrapSelection(textarea, "**", "**");
-    if (action === "fmt-italic") wrapSelection(textarea, "*", "*");
-    if (action === "fmt-list") toggleListPrefix(textarea);
-    updateCommentPreview(id);
+    const editor = document.querySelector(`.comment-editor[data-id="${id}"]`);
+    editor.focus();
+    const command = { "fmt-bold": "bold", "fmt-italic": "italic", "fmt-list": "insertUnorderedList" }[fmtBtn.dataset.action];
+    if (command) document.execCommand(command, false, null);
   }
 });
 
-document.addEventListener("input", (e) => {
-  const textarea = e.target.closest(".comment-box textarea");
-  if (textarea) updateCommentPreview(textarea.dataset.id);
+// Strg+B / Strg+I direkt im Kommentarfeld, wie in anderen Editoren üblich
+document.addEventListener("keydown", (e) => {
+  if (!e.target.closest(".comment-editor")) return;
+  if (!(e.ctrlKey || e.metaKey)) return;
+  if (e.key.toLowerCase() === "b") { e.preventDefault(); document.execCommand("bold", false, null); }
+  if (e.key.toLowerCase() === "i") { e.preventDefault(); document.execCommand("italic", false, null); }
 });
 
 function updateCommentDisplay(id) {
@@ -488,37 +496,7 @@ function updateCommentDisplay(id) {
     displayEl.className = "comment-display";
     card.querySelector(".comment-box").insertAdjacentElement("beforebegin", displayEl);
   }
-  displayEl.innerHTML = renderMarkdown(comment);
-}
-
-function updateCommentPreview(id) {
-  const textarea = document.querySelector(`.comment-box textarea[data-id="${id}"]`);
-  const preview = document.getElementById(`comment-preview-${id}`);
-  if (textarea && preview) preview.innerHTML = renderMarkdown(textarea.value);
-}
-
-function wrapSelection(textarea, before, after) {
-  const start = textarea.selectionStart;
-  const end = textarea.selectionEnd;
-  const value = textarea.value;
-  const selected = value.slice(start, end) || "Text";
-  textarea.value = value.slice(0, start) + before + selected + after + value.slice(end);
-  textarea.focus();
-  textarea.selectionStart = start + before.length;
-  textarea.selectionEnd = start + before.length + selected.length;
-}
-
-function toggleListPrefix(textarea) {
-  const start = textarea.selectionStart;
-  const end = textarea.selectionEnd;
-  const value = textarea.value;
-  const lineStart = value.lastIndexOf("\n", start - 1) + 1;
-  let lineEnd = value.indexOf("\n", end);
-  if (lineEnd === -1) lineEnd = value.length;
-  const block = value.slice(lineStart, lineEnd);
-  const newBlock = block.split("\n").map(l => (l.startsWith("- ") ? l : "- " + l)).join("\n");
-  textarea.value = value.slice(0, lineStart) + newBlock + value.slice(lineEnd);
-  textarea.focus();
+  displayEl.innerHTML = sanitizeCommentHtml(comment);
 }
 
 (async function init() {
