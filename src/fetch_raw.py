@@ -12,6 +12,7 @@ from pathlib import Path
 import yaml
 from dotenv import load_dotenv
 
+from .backlog import DEFAULT_BATCH_SIZE, load_backlog, take_batch
 from .dedup import already_sent
 from .matching.profile_builder import build_profile
 from .sources import collect_jobs
@@ -30,29 +31,38 @@ def main() -> None:
     for person_cfg in people:
         name = person_cfg["name"]
         profile = build_profile(person_cfg["cv_path"], person_cfg["survey_path"])
+        batch_size = person_cfg.get("batch_size", DEFAULT_BATCH_SIZE)
 
         candidates = collect_jobs(person_cfg["search"])
         new_candidates = [j for j in candidates if not already_sent(name, j.id, j.source)]
+        new_candidate_dicts = [
+            {
+                "id": j.id,
+                "source": j.source,
+                "title": j.title,
+                "company": j.company,
+                "location": j.location,
+                "url": j.url,
+                "description": j.description,
+            }
+            for j in new_candidates
+        ]
 
-        payload = {
-            "person": name,
-            "profile": profile,
-            "jobs": [
-                {
-                    "id": j.id,
-                    "source": j.source,
-                    "title": j.title,
-                    "company": j.company,
-                    "location": j.location,
-                    "url": j.url,
-                    "description": j.description,
-                }
-                for j in new_candidates
-            ],
-        }
+        # Backlog-Warteschlange: neue Treffer hinten anfügen, nur einen Batch
+        # zur Bewertung entnehmen — bei einer großen Rohsuche (z.B. 1200
+        # Treffer) wird so nicht alles auf einmal bewertet, sondern über
+        # mehrere Läufe abgearbeitet (siehe src/backlog.py).
+        batch = take_batch(name, new_candidate_dicts, batch_size)
+        remaining_in_backlog = len(load_backlog(name))
+
+        payload = {"person": name, "profile": profile, "jobs": batch}
         out_path = PENDING_DIR / f"{name}.json"
         out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-        print(f"[{name}] {len(new_candidates)} neue Jobs bereit zur Bewertung in {out_path}")
+        print(
+            f"[{name}] {len(new_candidate_dicts)} neue Treffer gefunden, "
+            f"{len(batch)} davon in diesem Lauf zur Bewertung bereit "
+            f"({remaining_in_backlog} bleiben im Backlog für die nächsten Läufe)."
+        )
 
 
 if __name__ == "__main__":

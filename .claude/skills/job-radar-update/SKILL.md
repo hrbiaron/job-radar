@@ -12,8 +12,15 @@ Führe diesen Ablauf Schritt für Schritt aus:
 Führe aus: `python -m src.fetch_raw`
 
 Das schreibt für jede Person eine Datei `data/pending_scores/<Name>.json`
-mit neuen, noch nicht verschickten Jobs plus dem Kandidatenprofil
+mit neuen, noch nicht bewerteten Jobs plus dem Kandidatenprofil
 (CV-Text + Fragebogen-Antworten im Feld `profile`).
+
+**Backlog-Warteschlange:** Findet die Rohsuche mehr neue Jobs, als in einem
+Lauf sinnvoll bewertbar sind (Standard: 200, siehe `batch_size` in
+`config/people.yaml`), landet der Rest in `data/backlog/<Name>.json` und
+wird bei den nächsten Läufen nachgeholt (älteste zuerst) — zusammen mit
+neu hinzugekommenen Treffern. Die Konsole zeigt an, wie viele Jobs noch im
+Backlog übrig sind.
 
 ## 2. Jobs bewerten (das übernimmst DU, in dieser Session)
 
@@ -38,17 +45,22 @@ Für jede Datei in `data/pending_scores/`, die nicht leer ist:
 Führe aus: `python -m src.finish_run`
 
 Das filtert nach dem in `config/people.yaml` gesetzten `min_score`,
-reichert die Top-Kandidaten mit Kununu-Daten an (Scraper, keine API),
-aktualisiert `docs/jobs.json`, verschickt die E-Mail und trägt die
-verschickten Jobs in die Dedup-Datenbank ein.
+verlinkt zu Kununu (kein automatischer Abruf, siehe Kununu-Hinweis im
+Code), aktualisiert `docs/<person-slug>/jobs.json`, verschickt die
+Benachrichtigungsmail und trägt ALLE bewerteten Jobs (nicht nur die
+verschickten) in die Dedup-Datenbank ein, damit sie nie erneut bewertet
+werden.
 
 ## 4. Committen & pushen
 
 ```
-git add data/sent_jobs.db docs/jobs.json
+git add data/sent_jobs.db data/backlog docs
 git commit -m "Job-Radar Update $(date +%Y-%m-%d)"
 git push
 ```
+
+(`config/people.yaml` bleibt bewusst außen vor, siehe `.gitignore` —
+enthält echte Namen/E-Mails.)
 
 GitHub Pages übernimmt die aktualisierte Seite automatisch — für diesen
 Ablauf ist keine GitHub Action nötig.

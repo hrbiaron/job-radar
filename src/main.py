@@ -10,12 +10,14 @@ import argparse
 import yaml
 from dotenv import load_dotenv
 
+from .backlog import DEFAULT_BATCH_SIZE, load_backlog, take_batch
 from .dedup import already_sent, mark_sent
 from .emailer import send_digest
 from .enrich.kununu_scraper import get_company_info
 from .matching.profile_builder import build_profile
 from .matching.scorer import score_job
 from .sources import collect_jobs
+from .sources.base import JobPosting
 from .static_site import update_static_site
 
 load_dotenv()
@@ -24,16 +26,30 @@ load_dotenv()
 def process_person(person_cfg: dict, dry_run: bool) -> None:
     name = person_cfg["name"]
     profile = build_profile(person_cfg["cv_path"], person_cfg["survey_path"])
+    batch_size = person_cfg.get("batch_size", DEFAULT_BATCH_SIZE)
 
     candidates = collect_jobs(person_cfg["search"])
     new_candidates = [j for j in candidates if not already_sent(name, j.id, j.source)]
+    new_candidate_dicts = [
+        {
+            "id": j.id, "source": j.source, "title": j.title, "company": j.company,
+            "location": j.location, "url": j.url, "description": j.description,
+        }
+        for j in new_candidates
+    ]
+
+    # Backlog-Warteschlange wie in fetch_raw.py: pro Lauf nur einen Batch
+    # bewerten (=bezahlte API-Calls), Rest bleibt für die nächsten Läufe stehen.
+    batch = take_batch(name, new_candidate_dicts, batch_size)
+    remaining_in_backlog = len(load_backlog(name))
+    batch_jobs = [JobPosting(**item) for item in batch]
 
     threshold = person_cfg["min_score"]
     maybe_zone = person_cfg.get("include_maybe_zone", False)
     lower_bound = 50 if maybe_zone else threshold
 
     to_send = []
-    for job in new_candidates:
+    for job in batch_jobs:
         result = score_job(profile, job.title, job.company, job.description)
         job.match_score = result["score"]
         job.match_reason = result["reason"]
@@ -48,7 +64,10 @@ def process_person(person_cfg: dict, dry_run: bool) -> None:
             to_send.append(job)
 
     if dry_run:
-        print(f"[{name}] {len(to_send)} Jobs würden verschickt:")
+        print(
+            f"[{name}] {len(new_candidate_dicts)} neue Treffer, {len(batch_jobs)} bewertet, "
+            f"{len(to_send)} würden verschickt ({remaining_in_backlog} bleiben im Backlog):"
+        )
         for job in to_send:
             print(f"  - {job.title} @ {job.company} (Score {job.match_score})")
         return
@@ -60,7 +79,9 @@ def process_person(person_cfg: dict, dry_run: bool) -> None:
         sync_api_url=person_cfg.get("sheets_sync_url"),
         sync_api_token=person_cfg.get("sheets_sync_token"),
     )
-    for job in to_send:
+    # Alle bewerteten Jobs merken, nicht nur die verschickten — sonst würden
+    # Jobs unter dem Schwellenwert bei jedem Lauf erneut bewertet (und bezahlt).
+    for job in batch_jobs:
         mark_sent(name, job.id, job.source)
 
 

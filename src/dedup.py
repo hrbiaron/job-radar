@@ -1,5 +1,13 @@
-"""SQLite-basierte Dedup-Liste: kein Job wird zweimal an dieselbe Person
-verschickt.
+"""SQLite-basierte Dedup-Liste.
+
+Trotz der Namen already_sent()/mark_sent() bedeutet ein Eintrag hier "wurde
+bereits BEWERTET", nicht nur "wurde verschickt" — finish_run.py/main.py rufen
+mark_sent() für JEDEN bewerteten Job auf, auch die unter dem Schwellenwert.
+Sonst würden Jobs, die es nicht über den Schwellenwert schaffen, bei jedem
+Lauf erneut in der Rohsuche auftauchen und erneut bewertet werden (unnötige
+Kosten in Variante A, unnötige Arbeit in Variante B) — v.a. relevant mit der
+Backlog-Warteschlange (src/backlog.py), die pro Lauf nur einen Teil der
+Treffer verarbeitet.
 """
 
 import sqlite3

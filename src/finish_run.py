@@ -75,10 +75,14 @@ def process_person(person_cfg: dict) -> None:
         sync_api_url=person_cfg.get("sheets_sync_url"),
         sync_api_token=person_cfg.get("sheets_sync_token"),
     )
-    for job in to_send:
+    # WICHTIG: alle bewerteten Jobs merken, nicht nur die verschickten — sonst
+    # würden Jobs unter dem Schwellenwert bei jedem künftigen Lauf erneut aus
+    # der Rohsuche auftauchen und wieder bewertet werden (Zeit-/Kostenverschwendung,
+    # v.a. relevant jetzt mit der Backlog-Warteschlange in fetch_raw.py).
+    for job in jobs:
         mark_sent(name, job.id, job.source)
 
-    print(f"[{name}] {len(to_send)} Jobs verschickt und in docs/jobs.json übernommen.")
+    print(f"[{name}] {len(to_send)} von {len(jobs)} bewerteten Jobs verschickt und in docs/jobs.json übernommen.")
 
 
 def main() -> None:
