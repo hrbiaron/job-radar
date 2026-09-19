@@ -108,7 +108,27 @@
     max-height: 260px; overflow-y: auto; padding-right: 4px;
   }
   .detail-description-hint { font-size: 0.82rem; color: var(--text-muted); font-style: italic; }
-  .comment-box textarea { width: 100%; min-height: 64px; resize: vertical; }
+  .comment-box textarea { width: 100%; min-height: 64px; resize: vertical; font-size: 0.88rem; }
+  .comment-toolbar { display: flex; gap: 4px; margin-bottom: 6px; }
+  .fmt-btn {
+    font-size: 0.8rem; width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text); cursor: pointer;
+  }
+  .comment-preview {
+    margin-top: 8px; padding: 8px 10px; border: 1px dashed var(--border); border-radius: 8px;
+    font-size: 0.85rem; line-height: 1.4; color: var(--text-muted); min-height: 20px;
+  }
+  .comment-preview:empty::before { content: "Vorschau erscheint hier..."; font-style: italic; opacity: 0.7; }
+  .comment-preview p { margin: 0 0 6px; }
+  .comment-preview p:last-child { margin-bottom: 0; }
+  .comment-preview ul { margin: 0 0 6px; padding-left: 20px; }
+  .comment-display {
+    font-size: 0.85rem; line-height: 1.4; color: var(--text-muted); margin-top: 10px;
+    padding: 8px 10px; background: var(--bg); border-radius: 8px;
+  }
+  .comment-display p { margin: 0 0 6px; }
+  .comment-display p:last-child { margin-bottom: 0; }
+  .comment-display ul { margin: 0 0 6px; padding-left: 20px; }
   .comment-save { margin-top: 6px; }
   .comment-saved-hint { font-size: 0.78rem; color: var(--good); margin-left: 8px; display: none; }
   .empty { text-align: center; color: var(--text-muted); padding: 40px 0; }
@@ -214,6 +234,34 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+// Einfache Markdown-ähnliche Formatierung für Kommentare: **fett**, *kursiv*,
+// Zeilen mit "- " als Liste. Text wird zuerst escaped, erst danach werden die
+// Formatierungs-Tags eingefügt — kein XSS-Risiko durch Nutzereingaben.
+function inlineFormat(escapedText) {
+  return escapedText
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/(?<!\*)\*([^*]+?)\*(?!\*)/g, "<em>$1</em>");
+}
+
+function renderMarkdown(raw) {
+  if (!raw) return "";
+  const lines = escapeHtml(raw).split("\n");
+  let html = "";
+  let inList = false;
+  for (const line of lines) {
+    const listMatch = line.match(/^[-*]\s+(.*)/);
+    if (listMatch) {
+      if (!inList) { html += "<ul>"; inList = true; }
+      html += `<li>${inlineFormat(listMatch[1])}</li>`;
+      continue;
+    }
+    if (inList) { html += "</ul>"; inList = false; }
+    if (line.trim() !== "") html += `<p>${inlineFormat(line)}</p>`;
+  }
+  if (inList) html += "</ul>";
+  return html;
+}
+
 const SOURCE_LABELS = { ba_jobsuche: "BA-Jobsuche", adzuna: "Adzuna", stepstone: "StepStone", indeed: "Indeed" };
 
 function formatSalary(job) {
@@ -300,6 +348,7 @@ function render() {
 
     const div = document.createElement("div");
     div.className = "job";
+    div.id = `job-card-${job.id}`;
     div.innerHTML = `
       <div class="job-top">
         <div>
@@ -331,8 +380,15 @@ function render() {
           ${s.comment ? "Kommentar bearbeiten" : "Kommentar hinzufügen"}
         </button>
       </div>
+      ${s.comment ? `<div class="comment-display">${renderMarkdown(s.comment)}</div>` : ""}
       <div class="comment-box" id="comment-box-${job.id}">
-        <textarea data-id="${job.id}" placeholder="z.B. Notizen zum Interview, was dir an der Stelle auffällt...">${s.comment || ""}</textarea>
+        <div class="comment-toolbar">
+          <button type="button" class="fmt-btn" data-action="fmt-bold" data-id="${job.id}" title="Fett"><strong>F</strong></button>
+          <button type="button" class="fmt-btn" data-action="fmt-italic" data-id="${job.id}" title="Kursiv"><em>K</em></button>
+          <button type="button" class="fmt-btn" data-action="fmt-list" data-id="${job.id}" title="Liste">☰</button>
+        </div>
+        <textarea data-id="${job.id}" placeholder="z.B. Notizen zum Interview, was dir an der Stelle auffällt... (**fett**, *kursiv*, Zeilen mit &quot;- &quot; für Liste)">${s.comment || ""}</textarea>
+        <div class="comment-preview" id="comment-preview-${job.id}">${renderMarkdown(s.comment || "")}</div>
         <div class="comment-save">
           <button class="act" data-action="save-comment" data-id="${job.id}">Speichern</button>
           <span class="comment-saved-hint" id="comment-saved-${job.id}">Gespeichert ✓</span>
@@ -395,9 +451,75 @@ document.addEventListener("click", (e) => {
     pushRemoteState(id, state[id].status || "", state[id].comment || "");
     const hint = document.getElementById(`comment-saved-${id}`);
     hint.style.display = "inline";
-    setTimeout(() => { hint.style.display = "none"; }, 2000);
+    setTimeout(() => { hint.style.display = "none"; }, 1500);
+    updateCommentDisplay(id);
+    return;
+  }
+  const fmtBtn = e.target.closest(".fmt-btn");
+  if (fmtBtn) {
+    const id = fmtBtn.dataset.id;
+    const textarea = document.querySelector(`.comment-box textarea[data-id="${id}"]`);
+    const action = fmtBtn.dataset.action;
+    if (action === "fmt-bold") wrapSelection(textarea, "**", "**");
+    if (action === "fmt-italic") wrapSelection(textarea, "*", "*");
+    if (action === "fmt-list") toggleListPrefix(textarea);
+    updateCommentPreview(id);
   }
 });
+
+document.addEventListener("input", (e) => {
+  const textarea = e.target.closest(".comment-box textarea");
+  if (textarea) updateCommentPreview(textarea.dataset.id);
+});
+
+function updateCommentDisplay(id) {
+  const card = document.getElementById(`job-card-${id}`);
+  if (!card) return;
+  const comment = (state[id] || {}).comment || "";
+  const toggleBtn = card.querySelector("button[data-action='toggle-comment']");
+  if (toggleBtn) toggleBtn.textContent = comment ? "Kommentar bearbeiten" : "Kommentar hinzufügen";
+  let displayEl = card.querySelector(".comment-display");
+  if (!comment) {
+    if (displayEl) displayEl.remove();
+    return;
+  }
+  if (!displayEl) {
+    displayEl = document.createElement("div");
+    displayEl.className = "comment-display";
+    card.querySelector(".comment-box").insertAdjacentElement("beforebegin", displayEl);
+  }
+  displayEl.innerHTML = renderMarkdown(comment);
+}
+
+function updateCommentPreview(id) {
+  const textarea = document.querySelector(`.comment-box textarea[data-id="${id}"]`);
+  const preview = document.getElementById(`comment-preview-${id}`);
+  if (textarea && preview) preview.innerHTML = renderMarkdown(textarea.value);
+}
+
+function wrapSelection(textarea, before, after) {
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const value = textarea.value;
+  const selected = value.slice(start, end) || "Text";
+  textarea.value = value.slice(0, start) + before + selected + after + value.slice(end);
+  textarea.focus();
+  textarea.selectionStart = start + before.length;
+  textarea.selectionEnd = start + before.length + selected.length;
+}
+
+function toggleListPrefix(textarea) {
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const value = textarea.value;
+  const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+  let lineEnd = value.indexOf("\n", end);
+  if (lineEnd === -1) lineEnd = value.length;
+  const block = value.slice(lineStart, lineEnd);
+  const newBlock = block.split("\n").map(l => (l.startsWith("- ") ? l : "- " + l)).join("\n");
+  textarea.value = value.slice(0, lineStart) + newBlock + value.slice(lineEnd);
+  textarea.focus();
+}
 
 (async function init() {
   try {
