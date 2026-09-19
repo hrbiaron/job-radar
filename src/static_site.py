@@ -73,6 +73,12 @@ def update_static_site(
                 "kununu_recommend_pct": job.company_recommend_pct,
                 "kununu_review_count": job.company_review_count,
                 "kununu_url": kununu_search_url(job.company),
+                "description": job.description or None,
+                "salary_min": job.salary_min,
+                "salary_max": job.salary_max,
+                "posted_date": job.posted_date.isoformat() if job.posted_date else None,
+                "source": job.source,
+                "direction_change_fit": job.direction_change_fit,
             }
         )
 
