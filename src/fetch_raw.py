@@ -44,6 +44,10 @@ def main() -> None:
                 "location": j.location,
                 "url": j.url,
                 "description": j.description,
+                "salary_min": j.salary_min,
+                "salary_max": j.salary_max,
+                "employment_type": j.employment_type,
+                "posted_date": j.posted_date.isoformat() if j.posted_date else None,
             }
             for j in new_candidates
         ]

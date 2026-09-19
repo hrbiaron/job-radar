@@ -35,8 +35,11 @@ Für jede Datei in `data/pending_scores/`, die nicht leer ist:
     gewünschten Richtungswechsel laut Fragebogen (nur relevant, falls im
     Fragebogen ein Richtungswechsel gewünscht ist, sonst immer false)
 - Schreibe das Ergebnis nach `data/scored/<Name>.json` als JSON-Liste:
-  jedes Element = das Original-Job-Objekt (id, source, title, company,
-  location, url, description) plus die drei neuen Felder oben.
+  jedes Element = das komplette Original-Job-Objekt (id, source, title,
+  company, location, url, description, salary_min, salary_max,
+  employment_type, posted_date — **alle unverändert durchreichen**, sonst
+  fehlen Gehalt/Arbeitszeit/Datum später auf der Seite) plus die drei neuen
+  Felder oben.
 - Nicht pauschal hohe Scores vergeben — das Ziel ist eine ehrliche
   Einschätzung, keine Bestätigung.
 

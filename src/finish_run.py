@@ -3,13 +3,17 @@ bereits bewerteten Jobs (data/scored/<Name>.json), filtert nach
 Schwellenwert, reichert mit Kununu an, aktualisiert die GitHub-Pages-Seite,
 verschickt die Mail und trägt sie in die Dedup-Liste ein.
 
-Erwartetes Format von data/scored/<Name>.json: Liste von Job-Objekten
-(id, source, title, company, location, url, description) jeweils ergänzt
-um score (int), reason (str), direction_change_fit (bool) — das hat
-Claude Code beim Ausführen der Skill selbst hinzugefügt.
+Erwartetes Format von data/scored/<Name>.json: Liste von Job-Objekten wie in
+data/pending_scores/<Name>.json (id, source, title, company, location, url,
+description, salary_min, salary_max, employment_type, posted_date) jeweils
+ergänzt um score (int), reason (str), direction_change_fit (bool) — das hat
+Claude Code beim Ausführen der Skill selbst hinzugefügt. Die anderen Felder
+müssen unverändert durchgereicht werden, sonst fehlen sie auf der
+GitHub-Pages-Seite.
 """
 
 import json
+from datetime import date
 from pathlib import Path
 
 import yaml
@@ -30,6 +34,7 @@ def load_scored(person: str) -> list[JobPosting]:
     raw = json.loads((SCORED_DIR / f"{person}.json").read_text(encoding="utf-8"))
     jobs = []
     for item in raw:
+        posted = item.get("posted_date")
         jobs.append(
             JobPosting(
                 id=item["id"],
@@ -39,6 +44,10 @@ def load_scored(person: str) -> list[JobPosting]:
                 location=item["location"],
                 url=item["url"],
                 description=item.get("description", ""),
+                salary_min=item.get("salary_min"),
+                salary_max=item.get("salary_max"),
+                employment_type=item.get("employment_type"),
+                posted_date=date.fromisoformat(posted) if posted else None,
                 match_score=item["score"],
                 match_reason=item["reason"],
                 direction_change_fit=item.get("direction_change_fit", False),
