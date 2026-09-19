@@ -67,6 +67,10 @@
   }
   .score.good { background: var(--good-bg); color: var(--good); }
   .score.mid { background: var(--mid-bg); color: var(--mid); }
+  .info-badge {
+    font-size: 0.76rem; padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+    background: var(--accent-soft); color: var(--accent);
+  }
   .status-badge {
     font-weight: 600; font-size: 0.78rem; padding: 3px 9px; border-radius: 999px; white-space: nowrap;
   }
@@ -228,10 +232,14 @@ function formatDate(isoDate) {
   } catch (e) { return isoDate; }
 }
 
+const EMPLOYMENT_LABELS = {
+  vollzeit: "Vollzeit",
+  teilzeit: "Teilzeit",
+  vollzeit_oder_teilzeit: "Vollzeit oder Teilzeit",
+};
+
 function detailsHtml(job) {
   const facts = [];
-  const salary = formatSalary(job);
-  if (salary) facts.push(`💶 ${salary}`);
   const posted = formatDate(job.posted_date);
   if (posted) facts.push(`📅 Veröffentlicht: ${posted}`);
   if (job.source) facts.push(`🔗 Quelle: ${SOURCE_LABELS[job.source] || job.source}`);
@@ -301,6 +309,9 @@ function render() {
         <div class="badges">
           <div class="score ${scoreClass(job.score||0)}">${job.score||"?"}/100</div>
           ${status ? `<div class="status-badge ${status}">${STATUS_META[status].label}</div>` : ""}
+          ${formatSalary(job) ? `<div class="info-badge">💶 ${formatSalary(job)}</div>` : ""}
+          ${job.employment_type && EMPLOYMENT_LABELS[job.employment_type]
+            ? `<div class="info-badge">${EMPLOYMENT_LABELS[job.employment_type]}</div>` : ""}
         </div>
       </div>
       <p class="reason">${job.reason || ""}</p>

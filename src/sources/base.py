@@ -23,6 +23,8 @@ class JobPosting:
     posted_date: date | None = None
     salary_min: int | None = None
     salary_max: int | None = None
+    # "vollzeit" | "teilzeit" | "vollzeit_oder_teilzeit" | None (Quelle macht keine Angabe)
+    employment_type: str | None = None
 
     # wird erst im Matching-Schritt befüllt
     match_score: int | None = None

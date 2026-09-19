@@ -74,6 +74,7 @@ def update_static_site(
                 "kununu_review_count": job.company_review_count,
                 "kununu_url": kununu_search_url(job.company),
                 "description": job.description or None,
+                "employment_type": job.employment_type,
                 "salary_min": job.salary_min,
                 "salary_max": job.salary_max,
                 "posted_date": job.posted_date.isoformat() if job.posted_date else None,

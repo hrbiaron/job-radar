@@ -35,6 +35,27 @@ def _parse_salary(item: dict) -> tuple[int | None, int | None]:
     return None, None
 
 
+def _parse_employment_type(item: dict) -> str | None:
+    """Steht ebenfalls schon in der Suchantwort, kein Extra-Request nötig."""
+    vollzeit = bool(item.get("arbeitszeitVollzeit"))
+    teilzeit = any(
+        item.get(flag)
+        for flag in (
+            "arbeitszeitTeilzeitAbend",
+            "arbeitszeitTeilzeitNachmittag",
+            "arbeitszeitTeilzeitVormittag",
+            "arbeitszeitTeilzeitFlexibel",
+        )
+    )
+    if vollzeit and teilzeit:
+        return "vollzeit_oder_teilzeit"
+    if vollzeit:
+        return "vollzeit"
+    if teilzeit:
+        return "teilzeit"
+    return None
+
+
 def search_jobs(was: str, wo: str, umkreis_km: int = 25, size: int = 50) -> list[JobPosting]:
     """Sucht Jobs über die BA-API und liefert sie als JobPosting-Liste zurück.
 
@@ -70,6 +91,7 @@ def search_jobs(was: str, wo: str, umkreis_km: int = 25, size: int = 50) -> list
                 posted_date=posted_date,
                 salary_min=salary_min,
                 salary_max=salary_max,
+                employment_type=_parse_employment_type(item),
             )
         )
     return jobs
