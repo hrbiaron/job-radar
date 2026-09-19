@@ -20,6 +20,21 @@ BASE_URL = "https://rest.arbeitsagentur.de/jobboerse/jobsuche-service"
 HEADERS = {"X-API-Key": "jobboerse-jobsuche"}
 
 
+def _parse_salary(item: dict) -> tuple[int | None, int | None]:
+    """Gehaltsangabe ist meist "KEINE_ANGABEN" (keine Werte), kommt aber manchmal
+    als Festgehalt (ein Wert) oder Gehaltsspanne (von/bis) — beide Formen stehen
+    schon in der normalen Suchantwort, kein Extra-Request nötig."""
+    art = item.get("artDerVerguetung")
+    if art == "FESTGEHALT" and item.get("festgehalt") is not None:
+        value = int(item["festgehalt"])
+        return value, value
+    if art == "GEHALTSSPANNE":
+        von = item.get("gehaltsspanneVon")
+        bis = item.get("gehaltsspanneBis")
+        return (int(von) if von is not None else None, int(bis) if bis is not None else None)
+    return None, None
+
+
 def search_jobs(was: str, wo: str, umkreis_km: int = 25, size: int = 50) -> list[JobPosting]:
     """Sucht Jobs über die BA-API und liefert sie als JobPosting-Liste zurück.
 
@@ -41,6 +56,7 @@ def search_jobs(was: str, wo: str, umkreis_km: int = 25, size: int = 50) -> list
             posted_date = date.fromisoformat(posted_raw) if posted_raw else None
         except ValueError:
             posted_date = None
+        salary_min, salary_max = _parse_salary(item)
 
         jobs.append(
             JobPosting(
@@ -52,6 +68,8 @@ def search_jobs(was: str, wo: str, umkreis_km: int = 25, size: int = 50) -> list
                 url=f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{item.get('referenznummer', '')}",
                 description=item.get("hauptberuf", ""),  # TODO: durch Volltext ersetzen
                 posted_date=posted_date,
+                salary_min=salary_min,
+                salary_max=salary_max,
             )
         )
     return jobs
