@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job-Radar — Zsofi</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --card-bg: #ffffff; --text: #1a1a1a; --text-muted: #6b6b6b;
+    --border: #e5e5e2; --accent: #a56342; --accent-soft: #f0e6de;
+    --good: #3a7d5c; --good-bg: #e8f3ee; --mid: #a5822f; --mid-bg: #f7f0de;
+    --warn-bg: #fbeee0; --warn-text: #9a5b1f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1b1a; --card-bg: #262523; --text: #ebe9e6; --text-muted: #a3a09b;
+      --border: #3a3836; --accent: #d99a6c; --accent-soft: #3a2f27;
+      --good: #6fbd97; --good-bg: #1f332a; --mid: #d4b25e; --mid-bg: #332c1a;
+      --warn-bg: #3a2c1a; --warn-text: #e0a765;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 24px 16px 64px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  .subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px; }
+  .sync-hint {
+    background: var(--warn-bg); color: var(--warn-text); font-size: 0.82rem;
+    padding: 8px 12px; border-radius: 10px; margin-bottom: 16px; display: none;
+  }
+  .controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+  input[type="text"], select {
+    padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--card-bg); color: var(--text); font-size: 0.9rem;
+  }
+  input[type="text"] { flex: 1; min-width: 160px; }
+  .refresh-btn {
+    padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--card-bg); color: var(--text); cursor: pointer; font-size: 0.9rem;
+  }
+  .job {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
+    padding: 16px 18px; margin-bottom: 14px; transition: opacity .15s;
+  }
+  .job.hidden-by-user { opacity: 0.35; }
+  .job-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+  .job-title { font-weight: 600; font-size: 1.02rem; margin: 0 0 2px; }
+  .job-title a { color: inherit; text-decoration: none; }
+  .job-title a:hover { text-decoration: underline; }
+  .job-company { color: var(--text-muted); font-size: 0.88rem; margin: 0; }
+  .score {
+    flex-shrink: 0; font-weight: 700; font-size: 0.85rem; padding: 4px 10px;
+    border-radius: 999px; white-space: nowrap;
+  }
+  .score.good { background: var(--good-bg); color: var(--good); }
+  .score.mid { background: var(--mid-bg); color: var(--mid); }
+  .reason { font-size: 0.88rem; margin: 10px 0; line-height: 1.4; }
+  .kununu {
+    font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border);
+    padding-top: 8px; margin-top: 8px;
+  }
+  .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .act {
+    font-size: 0.82rem; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text); cursor: pointer; text-decoration: none;
+    display: inline-block;
+  }
+  button.active-like { background: var(--good-bg); color: var(--good); border-color: transparent; }
+  button.active-hide { background: var(--border); }
+  .empty { text-align: center; color: var(--text-muted); padding: 40px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧭 Job-Radar</h1>
+  <p class="subtitle">Deine automatisch gefundenen, bewerteten Jobvorschläge — wird laufend aktualisiert</p>
+  <div class="sync-hint" id="sync-hint">
+    Geräteübergreifende Synchronisation ist noch nicht eingerichtet — Markierungen bleiben
+    nur auf diesem Gerät. Siehe <code>sheets-backend/SETUP.md</code>.
+  </div>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Suchen (Titel, Firma, Ort)...">
+    <select id="sort">
+      <option value="score-desc">Höchster Score zuerst</option>
+      <option value="score-asc">Niedrigster Score zuerst</option>
+    </select>
+    <button class="refresh-btn" id="refresh" title="Sync-Status neu laden">🔄</button>
+  </div>
+
+  <div id="list"></div>
+  <div id="empty" class="empty" style="display:none;">Keine Treffer für diesen Filter.</div>
+</div>
+
+<script>
+// ---- Konfiguration: nach dem Deployment des Apps-Script-Backends ausfüllen ----
+// siehe sheets-backend/SETUP.md
+const SYNC_CONFIG = {
+  apiUrl: "https://script.google.com/macros/s/AKfycbx7uyjcIA-HMur0C402c0HuG3mQUPpOsnD92giw2DXbaBEJDn3JePGtNu-i__A2Qom4vg/exec",   // endet auf /exec
+  apiToken: "longrandomstringzsofi",
+};
+
+function syncConfigured() {
+  return !!SYNC_CONFIG.apiUrl;
+}
+
+const STORAGE_KEY = "job-radar-state";
+let allJobs = [];
+let state = loadLocalState();
+
+function loadLocalState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { return {}; }
+}
+function saveLocalState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+function updateSyncHint() {
+  document.getElementById("sync-hint").style.display = syncConfigured() ? "none" : "block";
+}
+
+async function loadRemoteState() {
+  updateSyncHint();
+  if (!syncConfigured()) return;
+  try {
+    const res = await fetch(`${SYNC_CONFIG.apiUrl}?token=${encodeURIComponent(SYNC_CONFIG.apiToken)}`);
+    const remote = await res.json();
+    if (remote.error) { console.warn("Sync-Fehler:", remote.error); return; }
+    state = Object.assign({}, state, remote);
+    saveLocalState();
+  } catch (e) {
+    console.warn("Konnte Sync-Status nicht laden, nutze lokalen Stand.", e);
+  }
+}
+
+async function pushRemoteState(jobId, liked, hidden) {
+  if (!syncConfigured()) return;
+  try {
+    await fetch(SYNC_CONFIG.apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, // vermeidet CORS-Preflight
+      body: JSON.stringify({ token: SYNC_CONFIG.apiToken, job_id: jobId, liked, hidden }),
+    });
+  } catch (e) {
+    console.warn("Konnte Änderung nicht synchronisieren.", e);
+  }
+}
+
+function scoreClass(score) { return score >= 75 ? "good" : "mid"; }
+
+function render() {
+  const query = document.getElementById("search").value.toLowerCase();
+  const sort = document.getElementById("sort").value;
+
+  let filtered = allJobs.filter(j =>
+    ((j.title || "") + (j.company || "") + (j.location || "")).toLowerCase().includes(query)
+  );
+  filtered.sort((a, b) => sort === "score-desc" ? (b.score||0) - (a.score||0) : (a.score||0) - (b.score||0));
+
+  const list = document.getElementById("list");
+  const empty = document.getElementById("empty");
+  list.innerHTML = "";
+
+  if (filtered.length === 0) { empty.style.display = "block"; return; }
+  empty.style.display = "none";
+
+  filtered.forEach(job => {
+    const s = state[job.id] || {};
+    const kununuParts = [];
+    if (job.kununu_rating) kununuParts.push(`${job.kununu_rating} ★`);
+    if (job.kununu_recommend_pct) kununuParts.push(`${job.kununu_recommend_pct}% Weiterempfehlung`);
+    if (job.kununu_review_count) kununuParts.push(`${job.kununu_review_count} Bewertungen`);
+
+    const div = document.createElement("div");
+    div.className = "job" + (s.hidden ? " hidden-by-user" : "");
+    div.innerHTML = `
+      <div class="job-top">
+        <div>
+          <p class="job-title"><a href="${job.url}" target="_blank" rel="noopener">${job.title}</a></p>
+          <p class="job-company">${job.company} — ${job.location}</p>
+        </div>
+        <div class="score ${scoreClass(job.score||0)}">${job.score||"?"}/100</div>
+      </div>
+      <p class="reason">${job.reason || ""}</p>
+      ${kununuParts.length ? `<div class="kununu">${kununuParts.join(" · ")}</div>` : ""}
+      <div class="actions">
+        <button class="act ${s.liked ? 'active-like' : ''}" data-action="like" data-id="${job.id}">
+          ${s.liked ? "★ Interessant" : "☆ Als interessant markieren"}
+        </button>
+        <button class="act ${s.hidden ? 'active-hide' : ''}" data-action="hide" data-id="${job.id}">
+          ${s.hidden ? "Wieder einblenden" : "Ausblenden"}
+        </button>
+        ${job.kununu_url ? `<a class="act" href="${job.kununu_url}" target="_blank" rel="noopener">Kununu ansehen ↗</a>` : ""}
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+document.getElementById("search").addEventListener("input", render);
+document.getElementById("sort").addEventListener("change", render);
+document.getElementById("refresh").addEventListener("click", async () => {
+  await loadRemoteState();
+  render();
+});
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-action]");
+  if (!btn) return;
+  const id = btn.dataset.id;
+  const action = btn.dataset.action;
+  state[id] = state[id] || {};
+  if (action === "like") state[id].liked = !state[id].liked;
+  if (action === "hide") state[id].hidden = !state[id].hidden;
+  saveLocalState();
+  pushRemoteState(id, !!state[id].liked, !!state[id].hidden);
+  render();
+});
+
+(async function init() {
+  try {
+    const res = await fetch("jobs.json");
+    allJobs = await res.json();
+    await loadRemoteState();
+    render();
+  } catch (e) {
+    document.getElementById("empty").style.display = "block";
+    document.getElementById("empty").textContent = "Konnte jobs.json nicht laden.";
+  }
+})();
+</script>
+</body>
+</html>
