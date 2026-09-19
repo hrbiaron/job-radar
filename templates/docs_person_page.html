@@ -293,8 +293,6 @@ const EMPLOYMENT_LABELS = {
 
 function detailsHtml(job) {
   const facts = [];
-  const posted = formatDate(job.posted_date);
-  if (posted) facts.push(`📅 Veröffentlicht: ${posted}`);
   if (job.source) facts.push(`🔗 Quelle: ${SOURCE_LABELS[job.source] || job.source}`);
   if (job.direction_change_fit) facts.push(`🧭 Passt zu deinem gewünschten Richtungswechsel`);
 
@@ -366,6 +364,7 @@ function render() {
           ${formatSalary(job) ? `<div class="info-badge">💶 ${formatSalary(job)}</div>` : ""}
           ${job.employment_type && EMPLOYMENT_LABELS[job.employment_type]
             ? `<div class="info-badge">${EMPLOYMENT_LABELS[job.employment_type]}</div>` : ""}
+          ${formatDate(job.posted_date) ? `<div class="info-badge">📅 ${formatDate(job.posted_date)}</div>` : ""}
         </div>
       </div>
       <p class="reason">${job.reason || ""}</p>
