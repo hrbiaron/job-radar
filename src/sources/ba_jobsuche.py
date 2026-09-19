@@ -10,6 +10,8 @@ Ablauf:
   2. optional: GET .../pc/v4/jobdetails/{base64(refnr)} für Volltext-Beschreibung
 """
 
+from datetime import date
+
 import requests
 
 from .base import JobPosting
@@ -34,6 +36,12 @@ def search_jobs(was: str, wo: str, umkreis_km: int = 25, size: int = 50) -> list
     jobs: list[JobPosting] = []
     for item in data.get("ergebnisliste", []):
         locations = item.get("stellenlokationen") or [{}]
+        posted_raw = item.get("datumErsteVeroeffentlichung")
+        try:
+            posted_date = date.fromisoformat(posted_raw) if posted_raw else None
+        except ValueError:
+            posted_date = None
+
         jobs.append(
             JobPosting(
                 id=item.get("referenznummer", ""),
@@ -43,6 +51,7 @@ def search_jobs(was: str, wo: str, umkreis_km: int = 25, size: int = 50) -> list
                 location=locations[0].get("adresse", {}).get("ort", ""),
                 url=f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{item.get('referenznummer', '')}",
                 description=item.get("hauptberuf", ""),  # TODO: durch Volltext ersetzen
+                posted_date=posted_date,
             )
         )
     return jobs
