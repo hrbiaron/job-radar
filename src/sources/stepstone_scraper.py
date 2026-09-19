@@ -16,14 +16,24 @@ from .scraper_utils import polite_get
 SEARCH_URL = "https://www.stepstone.de/jobs/{was}/in-{wo}"
 
 
+def fetch_description(url: str) -> str:
+    """Lädt die Volltext-Beschreibung von der Detailseite eines einzelnen Jobs.
+
+    Bewusst NICHT Teil von search_jobs() — bei hunderten Treffern pro Suche wäre
+    das ein Extra-Request + Pause pro Job. Nur für die engere Auswahl (z.B. beim
+    Bewerten der Top-Kandidaten) gezielt aufrufen."""
+    response = polite_get(url)
+    soup = BeautifulSoup(response.text, "lxml")
+    content = soup.select_one("div[data-at='job-ad-content']")
+    return content.get_text("\n", strip=True) if content else ""
+
+
 def search_jobs(was: str, wo: str) -> list[JobPosting]:
     """Sucht Jobs auf StepStone und liefert sie als JobPosting-Liste zurück.
 
     TODO:
       - Paginierung (StepStone nutzt i.d.R. ?page=N)
       - Selektoren gegen aktuelles Markup verifizieren
-      - Bei Bedarf Volltext-Beschreibung von der Detailseite nachladen
-        (zusätzlicher Request pro Job -> sparsam einsetzen, nur für Top-Treffer)
     """
     url = SEARCH_URL.format(was=was.replace(" ", "-"), wo=wo.replace(" ", "-"))
     response = polite_get(url, params={"radius": 30})
