@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job-Radar — Chrissi</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --card-bg: #ffffff; --text: #1a1a1a; --text-muted: #6b6b6b;
+    --border: #e5e5e2; --accent: #a56342; --accent-soft: #f0e6de;
+    --good: #3a7d5c; --good-bg: #e8f3ee; --mid: #a5822f; --mid-bg: #f7f0de;
+    --warn-bg: #fbeee0; --warn-text: #9a5b1f;
+    --interview: #6a4fa3; --interview-bg: #ece6f5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1b1a; --card-bg: #262523; --text: #ebe9e6; --text-muted: #a3a09b;
+      --border: #3a3836; --accent: #d99a6c; --accent-soft: #3a2f27;
+      --good: #6fbd97; --good-bg: #1f332a; --mid: #d4b25e; --mid-bg: #332c1a;
+      --warn-bg: #3a2c1a; --warn-text: #e0a765;
+      --interview: #b79ee0; --interview-bg: #2e2740;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 24px 16px 64px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  .subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px; }
+  .sync-hint {
+    background: var(--warn-bg); color: var(--warn-text); font-size: 0.82rem;
+    padding: 8px 12px; border-radius: 10px; margin-bottom: 16px; display: none;
+  }
+  .tabs { display: flex; gap: 6px; margin-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .tab {
+    padding: 10px 14px; font-size: 0.9rem; color: var(--text-muted); cursor: pointer;
+    border: none; background: none; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  .tab.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+  .tab .count { color: var(--text-muted); font-weight: 400; }
+  .controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+  input[type="text"], select, textarea {
+    padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--card-bg); color: var(--text); font-size: 0.9rem; font-family: inherit;
+  }
+  input[type="text"] { flex: 1; min-width: 160px; }
+  .refresh-btn {
+    padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--card-bg); color: var(--text); cursor: pointer; font-size: 0.9rem;
+  }
+  .job {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
+    padding: 16px 18px; margin-bottom: 14px;
+  }
+  .job-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+  .job-title { font-weight: 600; font-size: 1.02rem; margin: 0 0 2px; }
+  .job-title a { color: inherit; text-decoration: none; }
+  .job-title a:hover { text-decoration: underline; }
+  .job-company { color: var(--text-muted); font-size: 0.88rem; margin: 0; }
+  .badges { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
+  .score {
+    font-weight: 700; font-size: 0.85rem; padding: 4px 10px;
+    border-radius: 999px; white-space: nowrap;
+  }
+  .score.good { background: var(--good-bg); color: var(--good); }
+  .score.mid { background: var(--mid-bg); color: var(--mid); }
+  .info-badge {
+    font-size: 0.76rem; padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  .status-badge {
+    font-weight: 600; font-size: 0.78rem; padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .status-badge.interessant { background: var(--good-bg); color: var(--good); }
+  .status-badge.beworben { background: var(--mid-bg); color: var(--mid); }
+  .status-badge.interview { background: var(--interview-bg); color: var(--interview); }
+  .status-badge.nicht_bewerben { background: var(--border); color: var(--text-muted); }
+  .reason { font-size: 0.88rem; margin: 10px 0; line-height: 1.4; }
+  .kununu {
+    font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border);
+    padding-top: 8px; margin-top: 8px;
+  }
+  .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+  .act {
+    font-size: 0.82rem; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text); cursor: pointer; text-decoration: none;
+    display: inline-block; font-family: inherit;
+  }
+  .status-select { min-width: 200px; }
+  .comment-toggle { background: none; border: none; color: var(--text-muted); font-size: 0.82rem;
+    cursor: pointer; padding: 6px 4px; text-decoration: underline; font-family: inherit; }
+  .comment-box { display: none; margin-top: 10px; }
+  .comment-box.open { display: block; }
+  .details-toggle {
+    background: none; border: none; color: var(--accent); font-size: 0.82rem;
+    cursor: pointer; padding: 6px 0; font-family: inherit; font-weight: 600;
+  }
+  .details-box { display: none; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .details-box.open { display: block; }
+  .detail-facts { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 0.85rem; margin-bottom: 10px; }
+  .detail-reason { font-size: 0.88rem; line-height: 1.4; margin-bottom: 10px; }
+  .detail-description { font-size: 0.85rem; }
+  .detail-description-text {
+    margin-top: 6px; line-height: 1.5; color: var(--text-muted);
+    max-height: 260px; overflow-y: auto; padding-right: 4px;
+  }
+  .detail-description-hint { font-size: 0.82rem; color: var(--text-muted); font-style: italic; }
+  .comment-toolbar { display: flex; gap: 4px; margin-bottom: 6px; }
+  .fmt-btn {
+    font-size: 0.8rem; width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text); cursor: pointer;
+  }
+  .fmt-btn.active { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+  .comment-editor {
+    width: 100%; min-height: 64px; border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 10px; font-size: 0.88rem; line-height: 1.4; background: var(--card-bg); color: var(--text);
+    font-family: inherit; outline: none;
+  }
+  .comment-editor:focus { border-color: var(--accent); }
+  .comment-editor:empty::before { content: attr(data-placeholder); color: var(--text-muted); }
+  .comment-editor p { margin: 0 0 6px; }
+  .comment-editor p:last-child { margin-bottom: 0; }
+  .comment-editor ul { margin: 0 0 6px; padding-left: 20px; }
+  .comment-display {
+    font-size: 0.85rem; line-height: 1.4; color: var(--text-muted); margin-top: 10px;
+    padding: 8px 10px; background: var(--bg); border-radius: 8px;
+  }
+  .comment-display p { margin: 0 0 6px; }
+  .comment-display p:last-child { margin-bottom: 0; }
+  .comment-display ul { margin: 0 0 6px; padding-left: 20px; }
+  .comment-save { margin-top: 6px; }
+  .comment-saved-hint { font-size: 0.78rem; color: var(--good); margin-left: 8px; display: none; }
+  .empty { text-align: center; color: var(--text-muted); padding: 40px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧭 Job-Radar</h1>
+  <p class="subtitle">Deine automatisch gefundenen, bewerteten Jobvorschläge — wird laufend aktualisiert</p>
+  <div class="sync-hint" id="sync-hint">
+    Geräteübergreifende Synchronisation ist noch nicht eingerichtet — Markierungen bleiben
+    nur auf diesem Gerät. Siehe <code>sheets-backend/SETUP.md</code>.
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="neu">Neu <span class="count" id="count-neu"></span></button>
+    <button class="tab" data-tab="meine">Meine Jobs <span class="count" id="count-meine"></span></button>
+    <button class="tab" data-tab="ausgeblendet">Ausgeblendet <span class="count" id="count-ausgeblendet"></span></button>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Suchen (Titel, Firma, Ort)...">
+    <select id="sort">
+      <option value="score-desc">Höchster Score zuerst</option>
+      <option value="score-asc">Niedrigster Score zuerst</option>
+    </select>
+    <button class="refresh-btn" id="refresh" title="Sync-Status neu laden">🔄</button>
+  </div>
+
+  <div id="list"></div>
+  <div id="empty" class="empty" style="display:none;">Keine Treffer für diesen Filter.</div>
+</div>
+
+<script>
+// ---- Konfiguration: nach dem Deployment des Apps-Script-Backends ausfüllen ----
+// siehe sheets-backend/SETUP.md
+const SYNC_CONFIG = {
+  apiUrl: "https://script.google.com/macros/s/AKfycbxBSFVHlW1CxzQ4AFmrUZymJfCFLxg-KDB3rnUxoNz21JqNCzn_8UcnctbWaSSgLtqH/exec",   // endet auf /exec
+  apiToken: "randomstringforchrissi1949",
+};
+
+// Reihenfolge = Reihenfolge im <select>. "" = kein Status (Tab "Neu").
+const STATUS_META = {
+  "":              { label: "Kein Status",             tab: "neu" },
+  "interessant":   { label: "Interesse",                tab: "meine" },
+  "beworben":      { label: "Beworben",                 tab: "meine" },
+  "interview":     { label: "Interview stattgefunden",  tab: "meine" },
+  "nicht_bewerben":{ label: "Möchte nicht bewerben",    tab: "ausgeblendet" },
+};
+
+function syncConfigured() {
+  return !!SYNC_CONFIG.apiUrl;
+}
+
+const STORAGE_KEY = "job-radar-state";
+let allJobs = [];
+let state = loadLocalState();
+let currentTab = "neu";
+
+function loadLocalState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { return {}; }
+}
+function saveLocalState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+function updateSyncHint() {
+  document.getElementById("sync-hint").style.display = syncConfigured() ? "none" : "block";
+}
+
+async function loadRemoteState() {
+  updateSyncHint();
+  if (!syncConfigured()) return;
+  try {
+    const res = await fetch(`${SYNC_CONFIG.apiUrl}?token=${encodeURIComponent(SYNC_CONFIG.apiToken)}`);
+    const remote = await res.json();
+    if (remote.error) { console.warn("Sync-Fehler:", remote.error); return; }
+    state = Object.assign({}, state, remote);
+    saveLocalState();
+  } catch (e) {
+    console.warn("Konnte Sync-Status nicht laden, nutze lokalen Stand.", e);
+  }
+}
+
+async function pushRemoteState(jobId, status, comment) {
+  if (!syncConfigured()) return;
+  try {
+    await fetch(SYNC_CONFIG.apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, // vermeidet CORS-Preflight
+      body: JSON.stringify({ token: SYNC_CONFIG.apiToken, job_id: jobId, status, comment }),
+    });
+  } catch (e) {
+    console.warn("Konnte Änderung nicht synchronisieren.", e);
+  }
+}
+
+function scoreClass(score) { return score >= 75 ? "good" : "mid"; }
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str || "";
+  return div.innerHTML;
+}
+
+// Kommentare werden als echtes (aber eingeschränktes) HTML gespeichert, das
+// Bearbeitungsfeld ist ein contenteditable-Element mit Werkzeugleiste — wie in
+// den meisten anderen Tools (Word, Gmail, ...), kein Markdown-Sternchen-Syntax.
+// Nur eine kleine, feste Menge an Tags ist erlaubt, alle Attribute werden
+// entfernt — sowohl beim Speichern als auch beim Anzeigen (falls jemand die
+// Google-Sheet-Zelle von Hand mit HTML befüllt).
+const ALLOWED_COMMENT_TAGS = new Set(["B", "STRONG", "I", "EM", "UL", "OL", "LI", "BR", "P", "DIV"]);
+
+function sanitizeCommentHtml(html) {
+  const template = document.createElement("template");
+  template.innerHTML = html || "";
+
+  function clean(node) {
+    [...node.childNodes].forEach(child => {
+      if (child.nodeType === Node.ELEMENT_NODE) {
+        if (!ALLOWED_COMMENT_TAGS.has(child.tagName)) {
+          while (child.firstChild) node.insertBefore(child.firstChild, child);
+          node.removeChild(child);
+          return;
+        }
+        [...child.attributes].forEach(attr => child.removeAttribute(attr.name));
+        clean(child);
+      } else if (child.nodeType !== Node.TEXT_NODE) {
+        node.removeChild(child); // Kommentare, etc.
+      }
+    });
+  }
+  clean(template.content);
+  return template.innerHTML;
+}
+
+const SOURCE_LABELS = { ba_jobsuche: "BA-Jobsuche", adzuna: "Adzuna", stepstone: "StepStone", indeed: "Indeed" };
+
+function formatSalary(job) {
+  if (!job.salary_min && !job.salary_max) return null;
+  const fmt = n => Math.round(n).toLocaleString("de-DE");
+  if (job.salary_min && job.salary_max && job.salary_min !== job.salary_max) {
+    return `${fmt(job.salary_min)}–${fmt(job.salary_max)} €`;
+  }
+  return `${fmt(job.salary_min || job.salary_max)} €`;
+}
+
+function formatDate(isoDate) {
+  if (!isoDate) return null;
+  try {
+    return new Date(isoDate).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+  } catch (e) { return isoDate; }
+}
+
+const EMPLOYMENT_LABELS = {
+  vollzeit: "Vollzeit",
+  teilzeit: "Teilzeit",
+  vollzeit_oder_teilzeit: "Vollzeit oder Teilzeit",
+};
+
+function detailsHtml(job) {
+  const facts = [];
+  const posted = formatDate(job.posted_date);
+  if (posted) facts.push(`📅 Veröffentlicht: ${posted}`);
+  if (job.source) facts.push(`🔗 Quelle: ${SOURCE_LABELS[job.source] || job.source}`);
+  if (job.direction_change_fit) facts.push(`🧭 Passt zu deinem gewünschten Richtungswechsel`);
+
+  return `
+    ${facts.length ? `<div class="detail-facts">${facts.map(f => `<span>${f}</span>`).join("")}</div>` : ""}
+    <div class="detail-reason"><strong>Warum das passt:</strong> ${escapeHtml(job.reason || "").replace(/\n/g, "<br>")}</div>
+    ${job.description
+      ? `<div class="detail-description"><strong>Stellenbeschreibung:</strong><div class="detail-description-text">${escapeHtml(job.description).replace(/\n/g, "<br>")}</div></div>`
+      : `<div class="detail-description-hint">Keine ausführliche Beschreibung verfügbar — Details direkt in der Anzeige nachlesen.</div>`}
+  `;
+}
+function tabForJob(job) {
+  const s = state[job.id] || {};
+  return (STATUS_META[s.status || ""] || STATUS_META[""]).tab;
+}
+
+function updateTabCounts() {
+  const counts = { neu: 0, meine: 0, ausgeblendet: 0 };
+  allJobs.forEach(j => { counts[tabForJob(j)]++; });
+  document.getElementById("count-neu").textContent = counts.neu ? `(${counts.neu})` : "";
+  document.getElementById("count-meine").textContent = counts.meine ? `(${counts.meine})` : "";
+  document.getElementById("count-ausgeblendet").textContent = counts.ausgeblendet ? `(${counts.ausgeblendet})` : "";
+}
+
+function statusOptionsHtml(current) {
+  return Object.keys(STATUS_META).map(key =>
+    `<option value="${key}" ${key === (current || "") ? "selected" : ""}>${STATUS_META[key].label}</option>`
+  ).join("");
+}
+
+function render() {
+  const query = document.getElementById("search").value.toLowerCase();
+  const sort = document.getElementById("sort").value;
+
+  updateTabCounts();
+
+  let filtered = allJobs.filter(j => tabForJob(j) === currentTab).filter(j =>
+    ((j.title || "") + (j.company || "") + (j.location || "")).toLowerCase().includes(query)
+  );
+  filtered.sort((a, b) => sort === "score-desc" ? (b.score||0) - (a.score||0) : (a.score||0) - (b.score||0));
+
+  const list = document.getElementById("list");
+  const empty = document.getElementById("empty");
+  list.innerHTML = "";
+
+  if (filtered.length === 0) { empty.style.display = "block"; return; }
+  empty.style.display = "none";
+
+  filtered.forEach(job => {
+    const s = state[job.id] || {};
+    const status = s.status || "";
+    const kununuParts = [];
+    if (job.kununu_rating) kununuParts.push(`${job.kununu_rating} ★`);
+    if (job.kununu_recommend_pct) kununuParts.push(`${job.kununu_recommend_pct}% Weiterempfehlung`);
+    if (job.kununu_review_count) kununuParts.push(`${job.kununu_review_count} Bewertungen`);
+
+    const div = document.createElement("div");
+    div.className = "job";
+    div.id = `job-card-${job.id}`;
+    div.innerHTML = `
+      <div class="job-top">
+        <div>
+          <p class="job-title"><a href="${job.url}" target="_blank" rel="noopener">${job.title}</a></p>
+          <p class="job-company">${job.company} — ${job.location}</p>
+        </div>
+        <div class="badges">
+          <div class="score ${scoreClass(job.score||0)}">${job.score||"?"}/100</div>
+          ${status ? `<div class="status-badge ${status}">${STATUS_META[status].label}</div>` : ""}
+          ${formatSalary(job) ? `<div class="info-badge">💶 ${formatSalary(job)}</div>` : ""}
+          ${job.employment_type && EMPLOYMENT_LABELS[job.employment_type]
+            ? `<div class="info-badge">${EMPLOYMENT_LABELS[job.employment_type]}</div>` : ""}
+        </div>
+      </div>
+      <p class="reason">${job.reason || ""}</p>
+      ${kununuParts.length ? `<div class="kununu">${kununuParts.join(" · ")}</div>` : ""}
+      <button class="details-toggle" data-action="toggle-details" data-id="${job.id}">
+        Details anzeigen ▾
+      </button>
+      <div class="details-box" id="details-box-${job.id}">
+        ${detailsHtml(job)}
+      </div>
+      <div class="actions">
+        <select class="act status-select" data-action="status" data-id="${job.id}">
+          ${statusOptionsHtml(status)}
+        </select>
+        ${job.kununu_url ? `<a class="act" href="${job.kununu_url}" target="_blank" rel="noopener">Kununu ansehen ↗</a>` : ""}
+        <button class="comment-toggle" data-action="toggle-comment" data-id="${job.id}">
+          ${s.comment ? "Kommentar bearbeiten" : "Kommentar hinzufügen"}
+        </button>
+      </div>
+      ${s.comment ? `<div class="comment-display">${sanitizeCommentHtml(s.comment)}</div>` : ""}
+      <div class="comment-box" id="comment-box-${job.id}">
+        <div class="comment-toolbar">
+          <button type="button" class="fmt-btn" data-action="fmt-bold" data-id="${job.id}" title="Fett (Strg+B)"><strong>F</strong></button>
+          <button type="button" class="fmt-btn" data-action="fmt-italic" data-id="${job.id}" title="Kursiv (Strg+I)"><em>K</em></button>
+          <button type="button" class="fmt-btn" data-action="fmt-list" data-id="${job.id}" title="Aufzählungsliste">☰</button>
+        </div>
+        <div class="comment-editor" contenteditable="true" data-id="${job.id}"
+             data-placeholder="z.B. Notizen zum Interview, was dir an der Stelle auffällt..."
+        >${sanitizeCommentHtml(s.comment || "")}</div>
+        <div class="comment-save">
+          <button class="act" data-action="save-comment" data-id="${job.id}">Speichern</button>
+          <span class="comment-saved-hint" id="comment-saved-${job.id}">Gespeichert ✓</span>
+        </div>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll(".tab").forEach(el => el.classList.toggle("active", el.dataset.tab === tab));
+  render();
+}
+
+document.getElementById("tabs").addEventListener("click", (e) => {
+  const btn = e.target.closest(".tab");
+  if (btn) switchTab(btn.dataset.tab);
+});
+
+document.getElementById("search").addEventListener("input", render);
+document.getElementById("sort").addEventListener("change", render);
+document.getElementById("refresh").addEventListener("click", async () => {
+  await loadRemoteState();
+  render();
+});
+
+document.addEventListener("change", (e) => {
+  const sel = e.target.closest("select[data-action='status']");
+  if (!sel) return;
+  const id = sel.dataset.id;
+  state[id] = state[id] || {};
+  state[id].status = sel.value;
+  saveLocalState();
+  pushRemoteState(id, state[id].status || "", state[id].comment || "");
+  render();
+});
+
+document.addEventListener("click", (e) => {
+  const detailsBtn = e.target.closest("button[data-action='toggle-details']");
+  if (detailsBtn) {
+    const box = document.getElementById(`details-box-${detailsBtn.dataset.id}`);
+    const open = box.classList.toggle("open");
+    detailsBtn.textContent = open ? "Details verbergen ▴" : "Details anzeigen ▾";
+    return;
+  }
+  const toggleBtn = e.target.closest("button[data-action='toggle-comment']");
+  if (toggleBtn) {
+    document.getElementById(`comment-box-${toggleBtn.dataset.id}`).classList.toggle("open");
+    return;
+  }
+  const saveBtn = e.target.closest("button[data-action='save-comment']");
+  if (saveBtn) {
+    const id = saveBtn.dataset.id;
+    const editor = document.querySelector(`.comment-editor[data-id="${id}"]`);
+    state[id] = state[id] || {};
+    state[id].comment = sanitizeCommentHtml(editor.innerHTML);
+    saveLocalState();
+    pushRemoteState(id, state[id].status || "", state[id].comment || "");
+    const hint = document.getElementById(`comment-saved-${id}`);
+    hint.style.display = "inline";
+    setTimeout(() => { hint.style.display = "none"; }, 1500);
+    updateCommentDisplay(id);
+    return;
+  }
+  const fmtBtn = e.target.closest(".fmt-btn");
+  if (fmtBtn) {
+    e.preventDefault(); // Fokus im contenteditable-Feld darf nicht verloren gehen
+    const id = fmtBtn.dataset.id;
+    const editor = document.querySelector(`.comment-editor[data-id="${id}"]`);
+    editor.focus();
+    const command = { "fmt-bold": "bold", "fmt-italic": "italic", "fmt-list": "insertUnorderedList" }[fmtBtn.dataset.action];
+    if (command) document.execCommand(command, false, null);
+  }
+});
+
+// Strg+B / Strg+I direkt im Kommentarfeld, wie in anderen Editoren üblich
+document.addEventListener("keydown", (e) => {
+  if (!e.target.closest(".comment-editor")) return;
+  if (!(e.ctrlKey || e.metaKey)) return;
+  if (e.key.toLowerCase() === "b") { e.preventDefault(); document.execCommand("bold", false, null); }
+  if (e.key.toLowerCase() === "i") { e.preventDefault(); document.execCommand("italic", false, null); }
+});
+
+function updateCommentDisplay(id) {
+  const card = document.getElementById(`job-card-${id}`);
+  if (!card) return;
+  const comment = (state[id] || {}).comment || "";
+  const toggleBtn = card.querySelector("button[data-action='toggle-comment']");
+  if (toggleBtn) toggleBtn.textContent = comment ? "Kommentar bearbeiten" : "Kommentar hinzufügen";
+  let displayEl = card.querySelector(".comment-display");
+  if (!comment) {
+    if (displayEl) displayEl.remove();
+    return;
+  }
+  if (!displayEl) {
+    displayEl = document.createElement("div");
+    displayEl.className = "comment-display";
+    card.querySelector(".comment-box").insertAdjacentElement("beforebegin", displayEl);
+  }
+  displayEl.innerHTML = sanitizeCommentHtml(comment);
+}
+
+(async function init() {
+  try {
+    const res = await fetch("jobs.json");
+    allJobs = await res.json();
+  } catch (e) {
+    document.getElementById("empty").style.display = "block";
+    document.getElementById("empty").textContent = "Konnte jobs.json nicht laden.";
+    return;
+  }
+  // Erst mit dem lokalen Stand rendern (sofort sichtbar), Sync-Status danach im
+  // Hintergrund nachladen und neu rendern — sonst bleibt die Seite leer, bis der
+  // (manchmal langsame) Google-Apps-Script-Abruf durch ist.
+  render();
+  await loadRemoteState();
+  render();
+})();
+</script>
+</body>
+</html>
