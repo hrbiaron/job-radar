@@ -54,7 +54,7 @@ werden.
 ## 4. Committen & pushen
 
 ```
-git add data/sent_jobs.db data/backlog docs
+git add data/backlog docs
 git commit -m "Job-Radar Update $(date +%Y-%m-%d)"
 git push
 ```
