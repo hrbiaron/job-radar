@@ -68,12 +68,25 @@ function doPost(e) {
   return jsonResponse_({ ok: true });
 }
 
+const HEADER = ["job_id", "status", "comment", "updated_at"];
+
 function getSheet_() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
-    sheet.appendRow(["job_id", "status", "comment", "updated_at"]);
+    sheet.appendRow(HEADER);
+    return sheet;
+  }
+
+  // Selbstheilung: falls das Sheet noch die Kopfzeile eines älteren Schemas hat
+  // (z.B. "liked"/"hidden" von vor diesem Update), hier korrigieren — sonst
+  // sucht doGet() nach Spaltennamen, die es nicht mehr gibt, und liefert
+  // immer leere Werte zurück, obwohl doPost() korrekt schreibt.
+  const currentHeader = sheet.getRange(1, 1, 1, HEADER.length).getValues()[0];
+  const matches = HEADER.every(function (h, i) { return currentHeader[i] === h; });
+  if (!matches) {
+    sheet.getRange(1, 1, 1, HEADER.length).setValues([HEADER]);
   }
   return sheet;
 }
