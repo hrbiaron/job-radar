@@ -403,12 +403,17 @@ document.addEventListener("click", (e) => {
   try {
     const res = await fetch("jobs.json");
     allJobs = await res.json();
-    await loadRemoteState();
-    render();
   } catch (e) {
     document.getElementById("empty").style.display = "block";
     document.getElementById("empty").textContent = "Konnte jobs.json nicht laden.";
+    return;
   }
+  // Erst mit dem lokalen Stand rendern (sofort sichtbar), Sync-Status danach im
+  // Hintergrund nachladen und neu rendern — sonst bleibt die Seite leer, bis der
+  // (manchmal langsame) Google-Apps-Script-Abruf durch ist.
+  render();
+  await loadRemoteState();
+  render();
 })();
 </script>
 </body>
