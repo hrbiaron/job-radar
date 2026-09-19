@@ -6,6 +6,7 @@ zwei Personen locker ausreichend.
 """
 
 import os
+from datetime import datetime
 
 import requests
 
@@ -39,6 +40,12 @@ def search_jobs(was: str, wo: str, page: int = 1, results_per_page: int = 50) ->
 
     jobs: list[JobPosting] = []
     for item in data.get("results", []):
+        created_raw = item.get("created")
+        try:
+            posted_date = datetime.fromisoformat(created_raw.replace("Z", "+00:00")).date() if created_raw else None
+        except ValueError:
+            posted_date = None
+
         jobs.append(
             JobPosting(
                 id=str(item.get("id", "")),
@@ -50,6 +57,7 @@ def search_jobs(was: str, wo: str, page: int = 1, results_per_page: int = 50) ->
                 description=item.get("description", ""),
                 salary_min=item.get("salary_min"),
                 salary_max=item.get("salary_max"),
+                posted_date=posted_date,
             )
         )
     return jobs
