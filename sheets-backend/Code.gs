@@ -10,6 +10,10 @@
 const SHEET_NAME = "interactions";
 const SECRET = "CHANGE_ME_TO_A_LONG_RANDOM_STRING";
 
+// Gültige Status-Werte, siehe docs_person_page.html (STATUS_META) für die
+// dazugehörigen Labels/Farben. "" bedeutet "kein Status" (= Tab "Neu").
+const VALID_STATUSES = ["", "interessant", "nicht_bewerben", "beworben", "interview"];
+
 function doGet(e) {
   if (e.parameter.token !== SECRET) {
     return jsonResponse_({ error: "unauthorized" });
@@ -23,8 +27,8 @@ function doGet(e) {
     const record = {};
     header.forEach(function (key, i) { record[key] = row[i]; });
     result[record.job_id] = {
-      liked: record.liked === true || record.liked === "true",
-      hidden: record.hidden === true || record.hidden === "true",
+      status: record.status || "",
+      comment: record.comment || "",
     };
   });
 
@@ -36,6 +40,9 @@ function doPost(e) {
   if (body.token !== SECRET) {
     return jsonResponse_({ error: "unauthorized" });
   }
+
+  const status = VALID_STATUSES.indexOf(body.status) !== -1 ? body.status : "";
+  const comment = typeof body.comment === "string" ? body.comment : "";
 
   const sheet = getSheet_();
   const data = sheet.getDataRange().getValues();
@@ -50,7 +57,7 @@ function doPost(e) {
     }
   }
 
-  const rowValues = [body.job_id, !!body.liked, !!body.hidden, new Date().toISOString()];
+  const rowValues = [body.job_id, status, comment, new Date().toISOString()];
 
   if (rowIndex === -1) {
     sheet.appendRow(rowValues);
@@ -66,7 +73,7 @@ function getSheet_() {
   let sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
-    sheet.appendRow(["job_id", "liked", "hidden", "updated_at"]);
+    sheet.appendRow(["job_id", "status", "comment", "updated_at"]);
   }
   return sheet;
 }

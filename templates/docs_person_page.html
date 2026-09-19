@@ -10,6 +10,7 @@
     --border: #e5e5e2; --accent: #a56342; --accent-soft: #f0e6de;
     --good: #3a7d5c; --good-bg: #e8f3ee; --mid: #a5822f; --mid-bg: #f7f0de;
     --warn-bg: #fbeee0; --warn-text: #9a5b1f;
+    --interview: #6a4fa3; --interview-bg: #ece6f5;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -17,6 +18,7 @@
       --border: #3a3836; --accent: #d99a6c; --accent-soft: #3a2f27;
       --good: #6fbd97; --good-bg: #1f332a; --mid: #d4b25e; --mid-bg: #332c1a;
       --warn-bg: #3a2c1a; --warn-text: #e0a765;
+      --interview: #b79ee0; --interview-bg: #2e2740;
     }
   }
   * { box-sizing: border-box; }
@@ -32,10 +34,17 @@
     background: var(--warn-bg); color: var(--warn-text); font-size: 0.82rem;
     padding: 8px 12px; border-radius: 10px; margin-bottom: 16px; display: none;
   }
+  .tabs { display: flex; gap: 6px; margin-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .tab {
+    padding: 10px 14px; font-size: 0.9rem; color: var(--text-muted); cursor: pointer;
+    border: none; background: none; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  .tab.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+  .tab .count { color: var(--text-muted); font-weight: 400; }
   .controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
-  input[type="text"], select {
+  input[type="text"], select, textarea {
     padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border);
-    background: var(--card-bg); color: var(--text); font-size: 0.9rem;
+    background: var(--card-bg); color: var(--text); font-size: 0.9rem; font-family: inherit;
   }
   input[type="text"] { flex: 1; min-width: 160px; }
   .refresh-btn {
@@ -44,33 +53,46 @@
   }
   .job {
     background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
-    padding: 16px 18px; margin-bottom: 14px; transition: opacity .15s;
+    padding: 16px 18px; margin-bottom: 14px;
   }
-  .job.hidden-by-user { opacity: 0.35; }
   .job-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
   .job-title { font-weight: 600; font-size: 1.02rem; margin: 0 0 2px; }
   .job-title a { color: inherit; text-decoration: none; }
   .job-title a:hover { text-decoration: underline; }
   .job-company { color: var(--text-muted); font-size: 0.88rem; margin: 0; }
+  .badges { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
   .score {
-    flex-shrink: 0; font-weight: 700; font-size: 0.85rem; padding: 4px 10px;
+    font-weight: 700; font-size: 0.85rem; padding: 4px 10px;
     border-radius: 999px; white-space: nowrap;
   }
   .score.good { background: var(--good-bg); color: var(--good); }
   .score.mid { background: var(--mid-bg); color: var(--mid); }
+  .status-badge {
+    font-weight: 600; font-size: 0.78rem; padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .status-badge.interessant { background: var(--good-bg); color: var(--good); }
+  .status-badge.beworben { background: var(--mid-bg); color: var(--mid); }
+  .status-badge.interview { background: var(--interview-bg); color: var(--interview); }
+  .status-badge.nicht_bewerben { background: var(--border); color: var(--text-muted); }
   .reason { font-size: 0.88rem; margin: 10px 0; line-height: 1.4; }
   .kununu {
     font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border);
     padding-top: 8px; margin-top: 8px;
   }
-  .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
   .act {
     font-size: 0.82rem; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border);
     background: var(--bg); color: var(--text); cursor: pointer; text-decoration: none;
-    display: inline-block;
+    display: inline-block; font-family: inherit;
   }
-  button.active-like { background: var(--good-bg); color: var(--good); border-color: transparent; }
-  button.active-hide { background: var(--border); }
+  .status-select { min-width: 200px; }
+  .comment-toggle { background: none; border: none; color: var(--text-muted); font-size: 0.82rem;
+    cursor: pointer; padding: 6px 4px; text-decoration: underline; }
+  .comment-box { display: none; margin-top: 10px; }
+  .comment-box.open { display: block; }
+  .comment-box textarea { width: 100%; min-height: 64px; resize: vertical; }
+  .comment-save { margin-top: 6px; }
+  .comment-saved-hint { font-size: 0.78rem; color: var(--good); margin-left: 8px; display: none; }
   .empty { text-align: center; color: var(--text-muted); padding: 40px 0; }
 </style>
 </head>
@@ -81,6 +103,12 @@
   <div class="sync-hint" id="sync-hint">
     Geräteübergreifende Synchronisation ist noch nicht eingerichtet — Markierungen bleiben
     nur auf diesem Gerät. Siehe <code>sheets-backend/SETUP.md</code>.
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="neu">Neu <span class="count" id="count-neu"></span></button>
+    <button class="tab" data-tab="meine">Meine Jobs <span class="count" id="count-meine"></span></button>
+    <button class="tab" data-tab="ausgeblendet">Ausgeblendet <span class="count" id="count-ausgeblendet"></span></button>
   </div>
 
   <div class="controls">
@@ -104,6 +132,15 @@ const SYNC_CONFIG = {
   apiToken: {{ sync_api_token | default("", true) | tojson }},
 };
 
+// Reihenfolge = Reihenfolge im <select>. "" = kein Status (Tab "Neu").
+const STATUS_META = {
+  "":              { label: "Kein Status",             tab: "neu" },
+  "interessant":   { label: "Interesse",                tab: "meine" },
+  "beworben":      { label: "Beworben",                 tab: "meine" },
+  "interview":     { label: "Interview stattgefunden",  tab: "meine" },
+  "nicht_bewerben":{ label: "Möchte nicht bewerben",    tab: "ausgeblendet" },
+};
+
 function syncConfigured() {
   return !!SYNC_CONFIG.apiUrl;
 }
@@ -111,6 +148,7 @@ function syncConfigured() {
 const STORAGE_KEY = "job-radar-state";
 let allJobs = [];
 let state = loadLocalState();
+let currentTab = "neu";
 
 function loadLocalState() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { return {}; }
@@ -137,13 +175,13 @@ async function loadRemoteState() {
   }
 }
 
-async function pushRemoteState(jobId, liked, hidden) {
+async function pushRemoteState(jobId, status, comment) {
   if (!syncConfigured()) return;
   try {
     await fetch(SYNC_CONFIG.apiUrl, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" }, // vermeidet CORS-Preflight
-      body: JSON.stringify({ token: SYNC_CONFIG.apiToken, job_id: jobId, liked, hidden }),
+      body: JSON.stringify({ token: SYNC_CONFIG.apiToken, job_id: jobId, status, comment }),
     });
   } catch (e) {
     console.warn("Konnte Änderung nicht synchronisieren.", e);
@@ -151,12 +189,32 @@ async function pushRemoteState(jobId, liked, hidden) {
 }
 
 function scoreClass(score) { return score >= 75 ? "good" : "mid"; }
+function tabForJob(job) {
+  const s = state[job.id] || {};
+  return (STATUS_META[s.status || ""] || STATUS_META[""]).tab;
+}
+
+function updateTabCounts() {
+  const counts = { neu: 0, meine: 0, ausgeblendet: 0 };
+  allJobs.forEach(j => { counts[tabForJob(j)]++; });
+  document.getElementById("count-neu").textContent = counts.neu ? `(${counts.neu})` : "";
+  document.getElementById("count-meine").textContent = counts.meine ? `(${counts.meine})` : "";
+  document.getElementById("count-ausgeblendet").textContent = counts.ausgeblendet ? `(${counts.ausgeblendet})` : "";
+}
+
+function statusOptionsHtml(current) {
+  return Object.keys(STATUS_META).map(key =>
+    `<option value="${key}" ${key === (current || "") ? "selected" : ""}>${STATUS_META[key].label}</option>`
+  ).join("");
+}
 
 function render() {
   const query = document.getElementById("search").value.toLowerCase();
   const sort = document.getElementById("sort").value;
 
-  let filtered = allJobs.filter(j =>
+  updateTabCounts();
+
+  let filtered = allJobs.filter(j => tabForJob(j) === currentTab).filter(j =>
     ((j.title || "") + (j.company || "") + (j.location || "")).toLowerCase().includes(query)
   );
   filtered.sort((a, b) => sort === "score-desc" ? (b.score||0) - (a.score||0) : (a.score||0) - (b.score||0));
@@ -170,36 +228,58 @@ function render() {
 
   filtered.forEach(job => {
     const s = state[job.id] || {};
+    const status = s.status || "";
     const kununuParts = [];
     if (job.kununu_rating) kununuParts.push(`${job.kununu_rating} ★`);
     if (job.kununu_recommend_pct) kununuParts.push(`${job.kununu_recommend_pct}% Weiterempfehlung`);
     if (job.kununu_review_count) kununuParts.push(`${job.kununu_review_count} Bewertungen`);
 
     const div = document.createElement("div");
-    div.className = "job" + (s.hidden ? " hidden-by-user" : "");
+    div.className = "job";
     div.innerHTML = `
       <div class="job-top">
         <div>
           <p class="job-title"><a href="${job.url}" target="_blank" rel="noopener">${job.title}</a></p>
           <p class="job-company">${job.company} — ${job.location}</p>
         </div>
-        <div class="score ${scoreClass(job.score||0)}">${job.score||"?"}/100</div>
+        <div class="badges">
+          <div class="score ${scoreClass(job.score||0)}">${job.score||"?"}/100</div>
+          ${status ? `<div class="status-badge ${status}">${STATUS_META[status].label}</div>` : ""}
+        </div>
       </div>
       <p class="reason">${job.reason || ""}</p>
       ${kununuParts.length ? `<div class="kununu">${kununuParts.join(" · ")}</div>` : ""}
       <div class="actions">
-        <button class="act ${s.liked ? 'active-like' : ''}" data-action="like" data-id="${job.id}">
-          ${s.liked ? "★ Interessant" : "☆ Als interessant markieren"}
-        </button>
-        <button class="act ${s.hidden ? 'active-hide' : ''}" data-action="hide" data-id="${job.id}">
-          ${s.hidden ? "Wieder einblenden" : "Ausblenden"}
-        </button>
+        <select class="act status-select" data-action="status" data-id="${job.id}">
+          ${statusOptionsHtml(status)}
+        </select>
         ${job.kununu_url ? `<a class="act" href="${job.kununu_url}" target="_blank" rel="noopener">Kununu ansehen ↗</a>` : ""}
+        <button class="comment-toggle" data-action="toggle-comment" data-id="${job.id}">
+          ${s.comment ? "Kommentar bearbeiten" : "Kommentar hinzufügen"}
+        </button>
+      </div>
+      <div class="comment-box" id="comment-box-${job.id}">
+        <textarea data-id="${job.id}" placeholder="z.B. Notizen zum Interview, was dir an der Stelle auffällt...">${s.comment || ""}</textarea>
+        <div class="comment-save">
+          <button class="act" data-action="save-comment" data-id="${job.id}">Speichern</button>
+          <span class="comment-saved-hint" id="comment-saved-${job.id}">Gespeichert ✓</span>
+        </div>
       </div>
     `;
     list.appendChild(div);
   });
 }
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll(".tab").forEach(el => el.classList.toggle("active", el.dataset.tab === tab));
+  render();
+}
+
+document.getElementById("tabs").addEventListener("click", (e) => {
+  const btn = e.target.closest(".tab");
+  if (btn) switchTab(btn.dataset.tab);
+});
 
 document.getElementById("search").addEventListener("input", render);
 document.getElementById("sort").addEventListener("change", render);
@@ -208,17 +288,35 @@ document.getElementById("refresh").addEventListener("click", async () => {
   render();
 });
 
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest("button[data-action]");
-  if (!btn) return;
-  const id = btn.dataset.id;
-  const action = btn.dataset.action;
+document.addEventListener("change", (e) => {
+  const sel = e.target.closest("select[data-action='status']");
+  if (!sel) return;
+  const id = sel.dataset.id;
   state[id] = state[id] || {};
-  if (action === "like") state[id].liked = !state[id].liked;
-  if (action === "hide") state[id].hidden = !state[id].hidden;
+  state[id].status = sel.value;
   saveLocalState();
-  pushRemoteState(id, !!state[id].liked, !!state[id].hidden);
+  pushRemoteState(id, state[id].status || "", state[id].comment || "");
   render();
+});
+
+document.addEventListener("click", (e) => {
+  const toggleBtn = e.target.closest("button[data-action='toggle-comment']");
+  if (toggleBtn) {
+    document.getElementById(`comment-box-${toggleBtn.dataset.id}`).classList.toggle("open");
+    return;
+  }
+  const saveBtn = e.target.closest("button[data-action='save-comment']");
+  if (saveBtn) {
+    const id = saveBtn.dataset.id;
+    const textarea = document.querySelector(`.comment-box textarea[data-id="${id}"]`);
+    state[id] = state[id] || {};
+    state[id].comment = textarea.value;
+    saveLocalState();
+    pushRemoteState(id, state[id].status || "", state[id].comment || "");
+    const hint = document.getElementById(`comment-saved-${id}`);
+    hint.style.display = "inline";
+    setTimeout(() => { hint.style.display = "none"; }, 2000);
+  }
 });
 
 (async function init() {
