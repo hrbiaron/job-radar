@@ -22,7 +22,7 @@ PENDING_DIR = Path("data/pending_scores")
 
 
 def main() -> None:
-    with open("config/people.yaml") as f:
+    with open("config/people.yaml", encoding="utf-8") as f:
         people = yaml.safe_load(f)
 
     PENDING_DIR.mkdir(parents=True, exist_ok=True)
@@ -51,7 +51,7 @@ def main() -> None:
             ],
         }
         out_path = PENDING_DIR / f"{name}.json"
-        out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2))
+        out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"[{name}] {len(new_candidates)} neue Jobs bereit zur Bewertung in {out_path}")
 
 

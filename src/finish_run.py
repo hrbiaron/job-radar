@@ -27,7 +27,7 @@ SCORED_DIR = Path("data/scored")
 
 
 def load_scored(person: str) -> list[JobPosting]:
-    raw = json.loads((SCORED_DIR / f"{person}.json").read_text())
+    raw = json.loads((SCORED_DIR / f"{person}.json").read_text(encoding="utf-8"))
     jobs = []
     for item in raw:
         jobs.append(
@@ -82,7 +82,7 @@ def process_person(person_cfg: dict) -> None:
 
 
 def main() -> None:
-    with open("config/people.yaml") as f:
+    with open("config/people.yaml", encoding="utf-8") as f:
         people = yaml.safe_load(f)
     for person_cfg in people:
         process_person(person_cfg)

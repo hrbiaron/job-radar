@@ -33,12 +33,12 @@ def kununu_search_url(company_name: str) -> str:
 
 def _load_cache() -> dict:
     if CACHE_PATH.exists():
-        return json.loads(CACHE_PATH.read_text())
+        return json.loads(CACHE_PATH.read_text(encoding="utf-8"))
     return {}
 
 
 def _save_cache(cache: dict) -> None:
-    CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2))
+    CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 EMPTY_INFO = {"rating": None, "recommend_pct": None, "review_count": None, "summary": None}

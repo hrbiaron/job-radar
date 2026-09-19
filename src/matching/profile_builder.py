@@ -53,7 +53,7 @@ def load_survey(survey_path: str) -> dict:
       "tabu_branchen": [...]
     }
     """
-    return json.loads(Path(survey_path).read_text())
+    return json.loads(Path(survey_path).read_text(encoding="utf-8"))
 
 
 def build_profile(cv_path: str, survey_path: str) -> dict:

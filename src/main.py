@@ -69,7 +69,7 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
-    with open("config/people.yaml") as f:
+    with open("config/people.yaml", encoding="utf-8") as f:
         people = yaml.safe_load(f)
 
     for person_cfg in people:
