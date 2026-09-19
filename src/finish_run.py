@@ -91,7 +91,7 @@ def process_person(person_cfg: dict) -> None:
     for job in jobs:
         mark_sent(name, job.id, job.source)
 
-    print(f"[{name}] {len(to_send)} von {len(jobs)} bewerteten Jobs verschickt und in docs/jobs.json übernommen.")
+    print(f"[{name}] {len(to_send)} von {len(jobs)} bewerteten Jobs verschickt und in docs/<slug>/jobs.json übernommen.")
 
 
 def main() -> None:
