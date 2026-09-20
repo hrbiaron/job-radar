@@ -15,7 +15,8 @@
     "posted_date": "2026-09-14",
     "source": "ba_jobsuche",
     "direction_change_fit": false,
-    "employment_type": "vollzeit"
+    "employment_type": "vollzeit",
+    "category": "Controlling"
   },
   {
     "id": "13183-8391-KORIAN2-S",
@@ -33,7 +34,8 @@
     "posted_date": "2026-08-19",
     "source": "ba_jobsuche",
     "direction_change_fit": false,
-    "employment_type": "vollzeit"
+    "employment_type": "vollzeit",
+    "category": "Controlling"
   },
   {
     "id": "10001-1003387226-S",
@@ -53,7 +55,8 @@
     "direction_change_fit": false,
     "salary_min": 100000,
     "salary_max": 100000,
-    "employment_type": "vollzeit"
+    "employment_type": "vollzeit",
+    "category": "Controlling"
   },
   {
     "id": "13643-3L_617988-S",
@@ -71,7 +74,8 @@
     "posted_date": "2026-09-09",
     "source": "ba_jobsuche",
     "direction_change_fit": false,
-    "employment_type": "vollzeit"
+    "employment_type": "vollzeit",
+    "category": "Controlling"
   },
   {
     "id": "10001-1003269924-S",
@@ -91,7 +95,8 @@
     "direction_change_fit": false,
     "salary_min": 80000,
     "salary_max": 105000,
-    "employment_type": "vollzeit"
+    "employment_type": "vollzeit",
+    "category": "Controlling"
   },
   {
     "id": "10000-1197966120-S",
@@ -109,6 +114,7 @@
     "posted_date": "2024-02-16",
     "source": "ba_jobsuche",
     "direction_change_fit": false,
-    "employment_type": "vollzeit"
+    "employment_type": "vollzeit",
+    "category": "Controlling"
   }
 ]

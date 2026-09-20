@@ -17,7 +17,8 @@
     "salary_max": 118000,
     "posted_date": "2026-08-12",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "SAP/IT-Consulting"
   },
   {
     "id": "stepstone-stellenangebote--SAP-Anwendungsbetreuer-m-w-d-mit-stellvertretender-Sachgebietsleitung-Muenchen-Bayerische-Versorgungskammer--14475939-inline.html",
@@ -37,7 +38,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "SAP/IT-Consulting"
   },
   {
     "id": "13669-Y9YOE2YBND05FFY4-S",
@@ -57,7 +59,8 @@
     "salary_max": null,
     "posted_date": "2026-09-13",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5867423796",
@@ -77,7 +80,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Customer Success"
   },
   {
     "id": "stepstone-stellenangebote--Account-Manager-m-w-d-Muenchen-Magna--14332620-inline.html",
@@ -97,7 +101,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Vertrieb"
   },
   {
     "id": "10001-1003205547-S",
@@ -117,7 +122,8 @@
     "salary_max": null,
     "posted_date": "2026-06-10",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Vertrieb"
   },
   {
     "id": "stepstone-stellenangebote--Kundenberater-Reiseversicherung-m-w-d-Quereinstieg-moeglich-Muenchen-Home-Office-bundesweit-Europ-Assistance-Services-GmbH--14508836-inline.html",
@@ -137,7 +143,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "stepstone-stellenangebote--Personalreferentin-Sachbearbeiterin-Personalverwaltung-m-w-d-Teilzeit-Muenchen-Therapienetz-Essstoerung--13504543-inline.html",
@@ -157,7 +164,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "HR"
   },
   {
     "id": "12688-REG-42030-RJA-S",
@@ -177,7 +185,8 @@
     "salary_max": null,
     "posted_date": "2026-08-26",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Controlling"
   },
   {
     "id": "10001-1003480389-S",
@@ -197,7 +206,8 @@
     "salary_max": null,
     "posted_date": "2026-08-03",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "stepstone-stellenangebote--Mitarbeiter-in-Office-Management-Controlling-Unternehmensorganisation-Bereich-Bau-m-w-d-Muenchen-Berk-Partner-Bauingenieure-GmbH--14394903-inline.html",
@@ -217,7 +227,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Controlling"
   },
   {
     "id": "10000-1207287718-S",
@@ -237,7 +248,8 @@
     "salary_max": null,
     "posted_date": "2026-07-23",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "10001-1003522181-S",
@@ -257,7 +269,8 @@
     "salary_max": 60000,
     "posted_date": "2026-08-11",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Controlling"
   },
   {
     "id": "5844171937",
@@ -277,7 +290,8 @@
     "salary_max": null,
     "posted_date": "2026-08-16",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Controlling"
   },
   {
     "id": "5878377238",
@@ -297,7 +311,8 @@
     "salary_max": 80,
     "posted_date": "2026-09-10",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Controlling"
   },
   {
     "id": "5838447911",
@@ -317,7 +332,8 @@
     "salary_max": null,
     "posted_date": "2026-08-12",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Controlling"
   },
   {
     "id": "12781-16415639-KAL-S",
@@ -337,7 +353,8 @@
     "salary_max": null,
     "posted_date": "2026-09-02",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "HR"
   },
   {
     "id": "10001-1003729153-S",
@@ -357,7 +374,8 @@
     "salary_max": null,
     "posted_date": "2026-09-18",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "HR"
   },
   {
     "id": "16980-0067074785-S",
@@ -377,7 +395,8 @@
     "salary_max": null,
     "posted_date": "2026-08-31",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "HR"
   },
   {
     "id": "14225-98f48b74d0e65c16-S",
@@ -397,7 +416,8 @@
     "salary_max": 55361,
     "posted_date": "2026-08-19",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "10001-1000941313-S",
@@ -417,7 +437,8 @@
     "salary_max": null,
     "posted_date": "2025-02-13",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "5847860085",
@@ -437,7 +458,8 @@
     "salary_max": null,
     "posted_date": "2026-08-19",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "indeed-60597bb4326c74cf",
@@ -457,7 +479,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "indeed",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "10001-1000889187-S",
@@ -477,7 +500,8 @@
     "salary_max": null,
     "posted_date": "2025-01-27",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Office/Assistenz"
   },
   {
     "id": "20208-12b292ccbb724d4fbe6-S",
@@ -497,7 +521,8 @@
     "salary_max": null,
     "posted_date": "2026-09-05",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Office/Assistenz"
   },
   {
     "id": "indeed-8063f0a77460b038",
@@ -517,7 +542,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "indeed",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Office/Assistenz"
   },
   {
     "id": "18024-10Q5a0000092S-S",
@@ -537,7 +563,8 @@
     "salary_max": null,
     "posted_date": "2026-08-28",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "12288-4929357319-S",
@@ -557,7 +584,8 @@
     "salary_max": null,
     "posted_date": "2026-09-03",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "10001-1002620832-S",
@@ -577,7 +605,8 @@
     "salary_max": 75000,
     "posted_date": "2026-02-18",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5890268137",
@@ -597,7 +626,8 @@
     "salary_max": null,
     "posted_date": "2026-09-19",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "SAP/IT-Consulting"
   },
   {
     "id": "stepstone-stellenangebote--Sachbearbeiter-m-w-d-Customer-Service-Inbound-Muenchen-DACHSER-SE--14523065-inline.html",
@@ -617,7 +647,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "stepstone-stellenangebote--Sachbearbeiter-m-w-d-Auftragserfassung-und-Kundenservice-Graefelfing-bei-Muenchen-Chromsystems-GmbH--14502566-inline.html",
@@ -637,7 +668,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5865126964",
@@ -657,7 +689,8 @@
     "salary_max": null,
     "posted_date": "2026-09-01",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Vertrieb"
   },
   {
     "id": "12633-e1d7b5bd_JB5249183-S",
@@ -677,7 +710,8 @@
     "salary_max": null,
     "posted_date": "2026-09-17",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Vertrieb"
   },
   {
     "id": "10001-1000912304-S",
@@ -697,7 +731,8 @@
     "salary_max": null,
     "posted_date": "2025-02-03",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "12288-4929585148-S",
@@ -717,7 +752,8 @@
     "salary_max": null,
     "posted_date": "2026-09-03",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "HR"
   },
   {
     "id": "stepstone-stellenangebote--Stellenausschreibung-SAP-HCM-Berater-m-w-d-Karlsfeld-Karlsfeld-HR-Team-Consult-GmbH--14355999-inline.html",
@@ -737,7 +773,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": false
+    "direction_change_fit": false,
+    "category": "SAP/IT-Consulting"
   },
   {
     "id": "stepstone-stellenangebote--Stellenausschreibung-SAP-HCM-Berater-m-w-d-Teilzeit-Werdau-Karlsfeld-HR-Team-Consult-GmbH--14366792-inline.html",
@@ -757,7 +794,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": false
+    "direction_change_fit": false,
+    "category": "SAP/IT-Consulting"
   },
   {
     "id": "indeed-402c4e7d2cbddbf1",
@@ -777,7 +815,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "indeed",
-    "direction_change_fit": false
+    "direction_change_fit": false,
+    "category": "SAP/IT-Consulting"
   },
   {
     "id": "indeed-8de0f36712df2438",
@@ -797,7 +836,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "indeed",
-    "direction_change_fit": false
+    "direction_change_fit": false,
+    "category": "SAP/IT-Consulting"
   },
   {
     "id": "19146-100014684082-S",
@@ -817,7 +857,8 @@
     "salary_max": 2800,
     "posted_date": "2026-09-08",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "10001-1002147648-S",
@@ -837,7 +878,8 @@
     "salary_max": null,
     "posted_date": "2025-11-13",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Vertrieb"
   },
   {
     "id": "10001-1003312037-S",
@@ -857,7 +899,8 @@
     "salary_max": null,
     "posted_date": "2026-07-01",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "20402-2340229-S",
@@ -877,7 +920,8 @@
     "salary_max": null,
     "posted_date": "2026-09-19",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "20471-2293054-S",
@@ -897,7 +941,8 @@
     "salary_max": null,
     "posted_date": "2026-07-09",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Vertrieb"
   },
   {
     "id": "10001-1003720836-S",
@@ -917,7 +962,8 @@
     "salary_max": null,
     "posted_date": "2026-09-17",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5889782848",
@@ -937,7 +983,8 @@
     "salary_max": null,
     "posted_date": "2026-09-18",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5867455873",
@@ -957,7 +1004,8 @@
     "salary_max": null,
     "posted_date": "2026-09-02",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5884382756",
@@ -977,7 +1025,8 @@
     "salary_max": null,
     "posted_date": "2026-09-15",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "5810566153",
@@ -997,7 +1046,8 @@
     "salary_max": null,
     "posted_date": "2026-07-22",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5841756342",
@@ -1017,7 +1067,8 @@
     "salary_max": null,
     "posted_date": "2026-08-14",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5810577198",
@@ -1037,7 +1088,8 @@
     "salary_max": null,
     "posted_date": "2026-07-22",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "3247631102",
@@ -1057,7 +1109,8 @@
     "salary_max": null,
     "posted_date": "2022-06-21",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5847836902",
@@ -1077,7 +1130,8 @@
     "salary_max": 43200,
     "posted_date": "2026-08-19",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5860888974",
@@ -1097,7 +1151,8 @@
     "salary_max": null,
     "posted_date": "2026-08-29",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5558997707",
@@ -1117,7 +1172,8 @@
     "salary_max": 16,
     "posted_date": "2025-12-29",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "5882781871",
@@ -1137,7 +1193,8 @@
     "salary_max": null,
     "posted_date": "2026-09-13",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5802915578",
@@ -1157,7 +1214,8 @@
     "salary_max": null,
     "posted_date": "2026-07-16",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5870113174",
@@ -1177,7 +1235,8 @@
     "salary_max": 43200,
     "posted_date": "2026-09-04",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "5875286483",
@@ -1197,7 +1256,8 @@
     "salary_max": 40800,
     "posted_date": "2026-09-08",
     "source": "adzuna",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "stepstone-stellenangebote--Kundenbetreuer-in-Luftfracht-Healthcare-m-w-d-Muenchen-Kuehne-Nagel-AG-Co-KG--14395373-inline.html",
@@ -1217,7 +1277,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "stepstone-stellenangebote--Kundenbetreuer-Energiedienstleistung-m-w-d-Muenchen-Augsburg-Nuernberg-Passau-BRUNATA-METRONA-GmbH-Co-KG--14383243-inline.html",
@@ -1237,7 +1298,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "stepstone-stellenangebote--Versicherungskaufmann-Kundenbetreuer-Innendienst-m-w-d-Muenchen-Ecclesia-Versicherungsdienst-GmbH--13961191-inline.html",
@@ -1257,7 +1319,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "stepstone-stellenangebote--Kundenbetreuer-in-fuer-Mobilfunk-m-w-d-Garching-bei-Muenchen-spusu--13995433-inline.html",
@@ -1277,7 +1340,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "stepstone-stellenangebote--Kundenberater-m-w-d-Bestandskauf-Muenchen-Fonds-Finanz-Maklerservice-GmbH--14453001-inline.html",
@@ -1297,7 +1361,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "stepstone-stellenangebote--Quereinsteiger-als-Kundenserviceberater-m-w-d-Kredite-Digital-Dortmund-Muenchen-CHECK24--14287831-inline.html",
@@ -1317,7 +1382,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "stepstone-stellenangebote--Kundenberater-in-m-w-d-Lohn-Gehalt-gern-Quereinstieg-Muenchen--11151048-inline.html",
@@ -1337,7 +1403,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "stepstone-stellenangebote--Mitarbeiter-Customer-Service-und-Backoffice-m-w-d-Muenchen-Huhmann-Partner--14494642-inline.html",
@@ -1357,7 +1424,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "stepstone",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "indeed-74ee6f9f086c7846",
@@ -1377,7 +1445,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "indeed",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "indeed-994caebfbc94712d",
@@ -1397,7 +1466,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "indeed",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Versicherung"
   },
   {
     "id": "indeed-cbb11c91bae0e8a7",
@@ -1417,7 +1487,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "indeed",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "indeed-63a26d984c68575d",
@@ -1437,7 +1508,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "indeed",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "indeed-9789379fef2c7670",
@@ -1457,7 +1529,8 @@
     "salary_max": null,
     "posted_date": null,
     "source": "indeed",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   },
   {
     "id": "19146-100015115198-S",
@@ -1477,7 +1550,8 @@
     "salary_max": 50632,
     "posted_date": "2026-09-19",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Customer Success"
   },
   {
     "id": "13635-ac629645_JB5246219-S",
@@ -1497,7 +1571,8 @@
     "salary_max": null,
     "posted_date": "2026-09-14",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Customer Success"
   },
   {
     "id": "12781-16236740-KAL-S",
@@ -1517,7 +1592,8 @@
     "salary_max": null,
     "posted_date": "2026-09-02",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Customer Success"
   },
   {
     "id": "10001-1003249081-S",
@@ -1537,7 +1613,8 @@
     "salary_max": 50000,
     "posted_date": "2026-06-18",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Customer Success"
   },
   {
     "id": "10001-1002471683-S",
@@ -1557,7 +1634,8 @@
     "salary_max": 45000,
     "posted_date": "2026-01-23",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Customer Success"
   },
   {
     "id": "10000-1206948940-S",
@@ -1577,6 +1655,7 @@
     "salary_max": 60000,
     "posted_date": "2026-06-24",
     "source": "ba_jobsuche",
-    "direction_change_fit": true
+    "direction_change_fit": true,
+    "category": "Kundenbetreuung"
   }
 ]
