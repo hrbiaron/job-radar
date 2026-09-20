@@ -8,10 +8,12 @@ data/pending_scores/<Name>.json (id, source, title, company, location, url,
 description, salary_min, salary_max, employment_type, posted_date) jeweils
 ergänzt um score (int), reason (str), direction_change_fit (bool), category
 (str, z.B. "Controlling", "HR", "SAP/IT-Consulting", "Kundenbetreuung" — für
-den Filter auf der Seite) — das hat Claude Code beim Ausführen der Skill
-selbst hinzugefügt. Die anderen Felder müssen unverändert durchgereicht
-werden, sonst fehlen sie auf der
-GitHub-Pages-Seite.
+den Filter auf der Seite), experience_gap (str oder null — gesetzt, wenn die
+Anzeige Berufserfahrung verlangt, die die Person laut CV/Fragebogen nicht
+hat, der Job aber trotzdem empfohlen wird; wird auf der Seite sichtbar
+markiert) — das hat Claude Code beim Ausführen der Skill selbst hinzugefügt.
+Die anderen Felder müssen unverändert durchgereicht werden, sonst fehlen sie
+auf der GitHub-Pages-Seite.
 """
 
 import json
@@ -54,6 +56,7 @@ def load_scored(person: str) -> list[JobPosting]:
                 match_reason=item["reason"],
                 direction_change_fit=item.get("direction_change_fit", False),
                 category=item.get("category"),
+                experience_gap=item.get("experience_gap"),
             )
         )
     return jobs

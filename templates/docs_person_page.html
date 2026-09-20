@@ -61,8 +61,12 @@
   .job-title a:hover { text-decoration: underline; }
   .job-company { color: var(--text-muted); font-size: 0.88rem; margin: 0; }
   .category-tag {
-    display: inline-block; margin-top: 6px; font-size: 0.74rem; font-weight: 600;
+    display: inline-block; margin-top: 6px; margin-right: 6px; font-size: 0.74rem; font-weight: 600;
     padding: 2px 8px; border-radius: 999px; background: var(--border); color: var(--text-muted);
+  }
+  .experience-gap-tag {
+    display: inline-block; margin-top: 6px; font-size: 0.74rem; font-weight: 600;
+    padding: 2px 8px; border-radius: 999px; background: var(--warn-bg); color: var(--warn-text);
   }
   .badges { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
   .score {
@@ -305,6 +309,9 @@ function detailsHtml(job) {
 
   return `
     ${facts.length ? `<div class="detail-facts">${facts.map(f => `<span>${f}</span>`).join("")}</div>` : ""}
+    ${job.experience_gap
+      ? `<div class="detail-reason"><strong>⚠️ Fehlende Erfahrung laut Anzeige:</strong> ${escapeHtml(job.experience_gap)}</div>`
+      : ""}
     <div class="detail-reason"><strong>Warum das passt:</strong> ${escapeHtml(job.reason || "").replace(/\n/g, "<br>")}</div>
     ${job.description
       ? `<div class="detail-description"><strong>Stellenbeschreibung:</strong><div class="detail-description-text">${escapeHtml(job.description).replace(/\n/g, "<br>")}</div></div>`
@@ -367,6 +374,7 @@ function render() {
           <p class="job-title"><a href="${job.url}" target="_blank" rel="noopener">${job.title}</a></p>
           <p class="job-company">${job.company} — ${job.location}</p>
           ${job.category ? `<span class="category-tag">${job.category}</span>` : ""}
+          ${job.experience_gap ? `<span class="experience-gap-tag" title="${escapeHtml(job.experience_gap)}">⚠️ Erfahrung fehlt</span>` : ""}
         </div>
         <div class="badges">
           <div class="score ${scoreClass(job.score||0)}">${job.score||"?"}/100</div>

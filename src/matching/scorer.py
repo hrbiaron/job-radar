@@ -19,7 +19,14 @@ Antworte AUSSCHLIESSLICH mit validem JSON, kein Fließtext davor oder danach:
   "score": <int 0-100>,
   "reason": "<2-3 Sätze, konkret, warum es passt oder nicht>",
   "direction_change_fit": <true/false — passt der Job zu einem angestrebten \
-Richtungswechsel laut Fragebogen, falls einer gewünscht ist, sonst false>
+Richtungswechsel laut Fragebogen, falls einer gewünscht ist, sonst false>,
+  "experience_gap": <string oder null — prüfe, ob die Anzeige Berufserfahrung \
+in einem Bereich verlangt, den die Person laut CV/Fragebogen NICHT hat. Falls \
+ja UND du den Job trotzdem empfiehlst (Score über der "vielleicht"-Grenze), \
+beschreibe hier kurz und konkret, welche Erfahrung fehlt, und in "reason" \
+zusätzlich, WARUM du den Job trotzdem für aussichtsreich hältst — wenn möglich \
+mit einer Parallele zu anderer Erfahrung aus CV/Fragebogen, die übertragbar \
+sein könnte. Sonst null.>
 }
 """
 

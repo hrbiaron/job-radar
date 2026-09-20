@@ -81,6 +81,7 @@ def update_static_site(
                 "source": job.source,
                 "direction_change_fit": job.direction_change_fit,
                 "category": job.category,
+                "experience_gap": job.experience_gap,
             }
         )
 

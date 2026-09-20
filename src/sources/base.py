@@ -30,6 +30,12 @@ class JobPosting:
     match_score: int | None = None
     match_reason: str | None = None
     direction_change_fit: bool | None = None
+    # kurze Beschreibung der Berufserfahrung, die die Anzeige verlangt, die die
+    # Person laut Fragebogen/CV NICHT hat, aber der Job trotzdem empfohlen wird
+    # (z.B. weil eine Parallele zu anderer Erfahrung besteht) — None, wenn kein
+    # relevanter Erfahrungs-Gap vorliegt. Wird explizit auf der Seite angezeigt,
+    # damit die Empfehlung trotz fehlender Erfahrung nachvollziehbar bleibt.
+    experience_gap: str | None = None
     # Freitext-Kategorie zum Filtern auf der GitHub-Pages-Seite, z.B. "Controlling",
     # "HR", "SAP/IT-Consulting", "Kundenbetreuung" — kein festes Set, die Seite
     # baut das Filter-Dropdown aus den tatsächlich vorkommenden Werten.

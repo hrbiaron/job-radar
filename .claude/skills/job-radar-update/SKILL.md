@@ -41,11 +41,27 @@ Für jede Datei in `data/pending_scores/`, die nicht leer ist:
     dieselbe Formulierung konsequent für gleichartige Jobs (nicht mal
     "HR" und mal "Personalwesen" für dieselbe Job-Art), sonst zersplittert
     der Filter unnötig.
+  - `experience_gap`: string oder `null`. Prüfe für JEDEN Job, ob die
+    Anzeige Berufserfahrung in einem Bereich verlangt (z.B. "mehrjährige
+    Erfahrung im Controlling", "Erfahrung in der Versicherungsbranche"),
+    den die Person laut CV/Fragebogen NICHT hat. Falls ja **und** du den
+    Job trotzdem empfiehlst (Score über der Schwelle bzw. "vielleicht"-Zone):
+    - Trage hier kurz und konkret ein, welche Erfahrung fehlt (z.B.
+      "Verlangt 3 Jahre Erfahrung im Versicherungsvertrieb, laut CV nicht
+      vorhanden").
+    - Ergänze in `reason` explizit eine Begründung, WARUM der Job trotz
+      dieser Lücke aussichtsreich sein könnte — wenn möglich mit einer
+      konkreten Parallele zu anderer Erfahrung aus CV/Fragebogen, die
+      übertragbar sein könnte (z.B. Kundenkontakt, Zahlenaffinität,
+      vergleichbare Branche, ähnliche Tätigkeit in anderem Kontext).
+      Erfinde keine Parallele, wenn wirklich keine erkennbar ist — sag das
+      dann auch so in der Begründung, statt sie zu beschönigen.
+    - Liegt kein relevanter Erfahrungs-Gap vor, setze `null`.
 - Schreibe das Ergebnis nach `data/scored/<Name>.json` als JSON-Liste:
   jedes Element = das komplette Original-Job-Objekt (id, source, title,
   company, location, url, description, salary_min, salary_max,
   employment_type, posted_date — **alle unverändert durchreichen**, sonst
-  fehlen Gehalt/Arbeitszeit/Datum später auf der Seite) plus die vier neuen
+  fehlen Gehalt/Arbeitszeit/Datum später auf der Seite) plus die fünf neuen
   Felder oben.
 - Nicht pauschal hohe Scores vergeben — das Ziel ist eine ehrliche
   Einschätzung, keine Bestätigung.
