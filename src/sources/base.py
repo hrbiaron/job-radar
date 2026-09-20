@@ -30,6 +30,10 @@ class JobPosting:
     match_score: int | None = None
     match_reason: str | None = None
     direction_change_fit: bool | None = None
+    # Freitext-Kategorie zum Filtern auf der GitHub-Pages-Seite, z.B. "Controlling",
+    # "HR", "SAP/IT-Consulting", "Kundenbetreuung" — kein festes Set, die Seite
+    # baut das Filter-Dropdown aus den tatsächlich vorkommenden Werten.
+    category: str | None = None
 
     # wird erst im Enrichment-Schritt (Kununu) befüllt
     company_rating: float | None = None

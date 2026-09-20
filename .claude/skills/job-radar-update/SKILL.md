@@ -34,11 +34,18 @@ Für jede Datei in `data/pending_scores/`, die nicht leer ist:
   - `direction_change_fit`: true/false — passt der Job zu einem
     gewünschten Richtungswechsel laut Fragebogen (nur relevant, falls im
     Fragebogen ein Richtungswechsel gewünscht ist, sonst immer false)
+  - `category`: eine kurze, sprechende Kategorie zum Filtern auf der Seite
+    (z.B. "SAP/IT-Consulting", "Controlling", "HR", "Kundenbetreuung",
+    "Versicherung", "Office/Assistenz", "IT-Support", "Vertrieb"). Kein
+    festes Set — wähle pro Job die treffendste Bezeichnung, aber wiederhole
+    dieselbe Formulierung konsequent für gleichartige Jobs (nicht mal
+    "HR" und mal "Personalwesen" für dieselbe Job-Art), sonst zersplittert
+    der Filter unnötig.
 - Schreibe das Ergebnis nach `data/scored/<Name>.json` als JSON-Liste:
   jedes Element = das komplette Original-Job-Objekt (id, source, title,
   company, location, url, description, salary_min, salary_max,
   employment_type, posted_date — **alle unverändert durchreichen**, sonst
-  fehlen Gehalt/Arbeitszeit/Datum später auf der Seite) plus die drei neuen
+  fehlen Gehalt/Arbeitszeit/Datum später auf der Seite) plus die vier neuen
   Felder oben.
 - Nicht pauschal hohe Scores vergeben — das Ziel ist eine ehrliche
   Einschätzung, keine Bestätigung.

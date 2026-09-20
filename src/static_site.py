@@ -80,6 +80,7 @@ def update_static_site(
                 "posted_date": job.posted_date.isoformat() if job.posted_date else None,
                 "source": job.source,
                 "direction_change_fit": job.direction_change_fit,
+                "category": job.category,
             }
         )
 

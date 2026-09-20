@@ -6,9 +6,11 @@ verschickt die Mail und trägt sie in die Dedup-Liste ein.
 Erwartetes Format von data/scored/<Name>.json: Liste von Job-Objekten wie in
 data/pending_scores/<Name>.json (id, source, title, company, location, url,
 description, salary_min, salary_max, employment_type, posted_date) jeweils
-ergänzt um score (int), reason (str), direction_change_fit (bool) — das hat
-Claude Code beim Ausführen der Skill selbst hinzugefügt. Die anderen Felder
-müssen unverändert durchgereicht werden, sonst fehlen sie auf der
+ergänzt um score (int), reason (str), direction_change_fit (bool), category
+(str, z.B. "Controlling", "HR", "SAP/IT-Consulting", "Kundenbetreuung" — für
+den Filter auf der Seite) — das hat Claude Code beim Ausführen der Skill
+selbst hinzugefügt. Die anderen Felder müssen unverändert durchgereicht
+werden, sonst fehlen sie auf der
 GitHub-Pages-Seite.
 """
 
@@ -51,6 +53,7 @@ def load_scored(person: str) -> list[JobPosting]:
                 match_score=item["score"],
                 match_reason=item["reason"],
                 direction_change_fit=item.get("direction_change_fit", False),
+                category=item.get("category"),
             )
         )
     return jobs
