@@ -18,7 +18,8 @@
     "posted_date": "2026-08-12",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "SAP/IT-Consulting"
+    "category": "SAP/IT-Consulting",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--SAP-Anwendungsbetreuer-m-w-d-mit-stellvertretender-Sachgebietsleitung-Muenchen-Bayerische-Versorgungskammer--14475939-inline.html",
@@ -39,7 +40,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "SAP/IT-Consulting"
+    "category": "SAP/IT-Consulting",
+    "experience_gap": null
   },
   {
     "id": "13669-Y9YOE2YBND05FFY4-S",
@@ -60,7 +62,8 @@
     "posted_date": "2026-09-13",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "5867423796",
@@ -81,7 +84,8 @@
     "posted_date": null,
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Customer Success"
+    "category": "Customer Success",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Account-Manager-m-w-d-Muenchen-Magna--14332620-inline.html",
@@ -102,7 +106,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Vertrieb"
+    "category": "Vertrieb",
+    "experience_gap": null
   },
   {
     "id": "10001-1003205547-S",
@@ -123,7 +128,8 @@
     "posted_date": "2026-06-10",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Vertrieb"
+    "category": "Vertrieb",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Kundenberater-Reiseversicherung-m-w-d-Quereinstieg-moeglich-Muenchen-Home-Office-bundesweit-Europ-Assistance-Services-GmbH--14508836-inline.html",
@@ -144,7 +150,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Personalreferentin-Sachbearbeiterin-Personalverwaltung-m-w-d-Teilzeit-Muenchen-Therapienetz-Essstoerung--13504543-inline.html",
@@ -165,7 +172,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "HR"
+    "category": "HR",
+    "experience_gap": null
   },
   {
     "id": "12688-REG-42030-RJA-S",
@@ -186,7 +194,8 @@
     "posted_date": "2026-08-26",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": null
   },
   {
     "id": "10001-1003480389-S",
@@ -207,7 +216,8 @@
     "posted_date": "2026-08-03",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": "Verlangt eine abgeschlossene Ausbildung als Kaufmann/-frau für Versicherungen und Finanzen — laut CV nicht vorhanden."
   },
   {
     "id": "stepstone-stellenangebote--Mitarbeiter-in-Office-Management-Controlling-Unternehmensorganisation-Bereich-Bau-m-w-d-Muenchen-Berk-Partner-Bauingenieure-GmbH--14394903-inline.html",
@@ -228,7 +238,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": "Verlangt mind. 4 Jahre Berufserfahrung in einem Architektur-, Ingenieur- oder Bauunternehmen — nicht vorhanden."
   },
   {
     "id": "10000-1207287718-S",
@@ -249,7 +260,8 @@
     "posted_date": "2026-07-23",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": "Versicherungsfachliche Ausbildung wird bevorzugt (nicht zwingend vorausgesetzt) — nicht vorhanden."
   },
   {
     "id": "10001-1003522181-S",
@@ -270,7 +282,8 @@
     "posted_date": "2026-08-11",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": null
   },
   {
     "id": "5844171937",
@@ -291,7 +304,8 @@
     "posted_date": "2026-08-16",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": null
   },
   {
     "id": "5878377238",
@@ -312,7 +326,8 @@
     "posted_date": "2026-09-10",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": null
   },
   {
     "id": "5838447911",
@@ -333,7 +348,8 @@
     "posted_date": "2026-08-12",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": null
   },
   {
     "id": "12781-16415639-KAL-S",
@@ -354,7 +370,8 @@
     "posted_date": "2026-09-02",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "HR"
+    "category": "HR",
+    "experience_gap": "Verlangt ein Studium mit HR-Schwerpunkt oder eine Verwaltungslaufbahn im öffentlichen Dienst — beides nicht vorhanden."
   },
   {
     "id": "10001-1003729153-S",
@@ -375,7 +392,8 @@
     "posted_date": "2026-09-18",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "HR"
+    "category": "HR",
+    "experience_gap": null
   },
   {
     "id": "16980-0067074785-S",
@@ -396,7 +414,8 @@
     "posted_date": "2026-08-31",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "HR"
+    "category": "HR",
+    "experience_gap": null
   },
   {
     "id": "14225-98f48b74d0e65c16-S",
@@ -417,7 +436,8 @@
     "posted_date": "2026-08-19",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": "Filialleitung setzt i.d.R. Führungs- und Vertriebserfahrung im Versicherungsvertrieb voraus — nicht vorhanden (kommt aber ohnehin aus anderen Gründen nicht in Frage, siehe Begründung)."
   },
   {
     "id": "10001-1000941313-S",
@@ -438,7 +458,8 @@
     "posted_date": "2025-02-13",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": null
   },
   {
     "id": "5847860085",
@@ -459,7 +480,8 @@
     "posted_date": "2026-08-19",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": null
   },
   {
     "id": "indeed-60597bb4326c74cf",
@@ -480,7 +502,8 @@
     "posted_date": null,
     "source": "indeed",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": null
   },
   {
     "id": "10001-1000889187-S",
@@ -501,7 +524,8 @@
     "posted_date": "2025-01-27",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Office/Assistenz"
+    "category": "Office/Assistenz",
+    "experience_gap": null
   },
   {
     "id": "20208-12b292ccbb724d4fbe6-S",
@@ -522,7 +546,8 @@
     "posted_date": "2026-09-05",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Office/Assistenz"
+    "category": "Office/Assistenz",
+    "experience_gap": null
   },
   {
     "id": "indeed-8063f0a77460b038",
@@ -543,7 +568,8 @@
     "posted_date": null,
     "source": "indeed",
     "direction_change_fit": true,
-    "category": "Office/Assistenz"
+    "category": "Office/Assistenz",
+    "experience_gap": null
   },
   {
     "id": "18024-10Q5a0000092S-S",
@@ -564,7 +590,8 @@
     "posted_date": "2026-08-28",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": "Verlangt eine Bankausbildung — nicht vorhanden."
   },
   {
     "id": "12288-4929357319-S",
@@ -585,7 +612,8 @@
     "posted_date": "2026-09-03",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "10001-1002620832-S",
@@ -606,7 +634,8 @@
     "posted_date": "2026-02-18",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": "Verlangt eine abgeschlossene Versicherungsausbildung UND mehrjährige Berufserfahrung im Versicherungsbereich — beides nicht vorhanden."
   },
   {
     "id": "5890268137",
@@ -627,7 +656,8 @@
     "posted_date": "2026-09-19",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "SAP/IT-Consulting"
+    "category": "SAP/IT-Consulting",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Sachbearbeiter-m-w-d-Customer-Service-Inbound-Muenchen-DACHSER-SE--14523065-inline.html",
@@ -648,7 +678,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Sachbearbeiter-m-w-d-Auftragserfassung-und-Kundenservice-Graefelfing-bei-Muenchen-Chromsystems-GmbH--14502566-inline.html",
@@ -669,7 +700,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "5865126964",
@@ -690,7 +722,8 @@
     "posted_date": "2026-09-01",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Vertrieb"
+    "category": "Vertrieb",
+    "experience_gap": null
   },
   {
     "id": "12633-e1d7b5bd_JB5249183-S",
@@ -711,7 +744,8 @@
     "posted_date": "2026-09-17",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Vertrieb"
+    "category": "Vertrieb",
+    "experience_gap": null
   },
   {
     "id": "10001-1000912304-S",
@@ -732,7 +766,8 @@
     "posted_date": "2025-02-03",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "12288-4929585148-S",
@@ -753,7 +788,8 @@
     "posted_date": "2026-09-03",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "HR"
+    "category": "HR",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Stellenausschreibung-SAP-HCM-Berater-m-w-d-Karlsfeld-Karlsfeld-HR-Team-Consult-GmbH--14355999-inline.html",
@@ -774,7 +810,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": false,
-    "category": "SAP/IT-Consulting"
+    "category": "SAP/IT-Consulting",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Stellenausschreibung-SAP-HCM-Berater-m-w-d-Teilzeit-Werdau-Karlsfeld-HR-Team-Consult-GmbH--14366792-inline.html",
@@ -795,7 +832,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": false,
-    "category": "SAP/IT-Consulting"
+    "category": "SAP/IT-Consulting",
+    "experience_gap": null
   },
   {
     "id": "indeed-402c4e7d2cbddbf1",
@@ -816,7 +854,8 @@
     "posted_date": null,
     "source": "indeed",
     "direction_change_fit": false,
-    "category": "SAP/IT-Consulting"
+    "category": "SAP/IT-Consulting",
+    "experience_gap": null
   },
   {
     "id": "19146-100014684082-S",
@@ -837,7 +876,8 @@
     "posted_date": "2026-09-08",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "10001-1002147648-S",
@@ -858,7 +898,8 @@
     "posted_date": "2025-11-13",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Vertrieb"
+    "category": "Vertrieb",
+    "experience_gap": null
   },
   {
     "id": "10001-1003312037-S",
@@ -879,7 +920,8 @@
     "posted_date": "2026-07-01",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": null
   },
   {
     "id": "20402-2340229-S",
@@ -900,7 +942,8 @@
     "posted_date": "2026-09-19",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": null
   },
   {
     "id": "20471-2293054-S",
@@ -921,7 +964,8 @@
     "posted_date": "2026-07-09",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Vertrieb"
+    "category": "Vertrieb",
+    "experience_gap": null
   },
   {
     "id": "10001-1003720836-S",
@@ -942,7 +986,8 @@
     "posted_date": "2026-09-17",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "5889782848",
@@ -963,7 +1008,8 @@
     "posted_date": "2026-09-18",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": "Bevorzugt Notar-/Rechtsanwaltsfachangestellten-Hintergrund — nicht vorhanden (laut Anzeige nur 'idealerweise', keine harte Hürde)."
   },
   {
     "id": "5867455873",
@@ -984,7 +1030,8 @@
     "posted_date": "2026-09-02",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": "Luftfracht-/Speditionslogistik-Fachwissen wird vorausgesetzt bzw. müsste angeeignet werden — bisher keine Logistik-Erfahrung im CV."
   },
   {
     "id": "5884382756",
@@ -1005,7 +1052,8 @@
     "posted_date": "2026-09-15",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": null
   },
   {
     "id": "5810566153",
@@ -1026,7 +1074,8 @@
     "posted_date": "2026-07-22",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": "Bevorzugt Notar-/Rechtsanwaltsfachangestellten-Hintergrund — nicht vorhanden (laut Anzeige nur 'idealerweise', keine harte Hürde)."
   },
   {
     "id": "5841756342",
@@ -1047,7 +1096,8 @@
     "posted_date": "2026-08-14",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": "Luftfracht-/Speditionslogistik-Fachwissen wird vorausgesetzt bzw. müsste angeeignet werden — bisher keine Logistik-Erfahrung im CV."
   },
   {
     "id": "5810577198",
@@ -1068,7 +1118,8 @@
     "posted_date": "2026-07-22",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": null
   },
   {
     "id": "3247631102",
@@ -1089,7 +1140,8 @@
     "posted_date": "2022-06-21",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "5847836902",
@@ -1110,7 +1162,8 @@
     "posted_date": "2026-08-19",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "5860888974",
@@ -1131,7 +1184,8 @@
     "posted_date": "2026-08-29",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "5558997707",
@@ -1152,7 +1206,8 @@
     "posted_date": "2025-12-29",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": null
   },
   {
     "id": "5882781871",
@@ -1173,7 +1228,8 @@
     "posted_date": "2026-09-13",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "5802915578",
@@ -1194,7 +1250,8 @@
     "posted_date": "2026-07-16",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "5870113174",
@@ -1215,7 +1272,8 @@
     "posted_date": "2026-09-04",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "5875286483",
@@ -1236,7 +1294,8 @@
     "posted_date": "2026-09-08",
     "source": "adzuna",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Kundenbetreuer-in-Luftfracht-Healthcare-m-w-d-Muenchen-Kuehne-Nagel-AG-Co-KG--14395373-inline.html",
@@ -1257,7 +1316,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": "Luftfracht-/Speditionslogistik-Fachwissen wird vorausgesetzt bzw. müsste angeeignet werden — bisher keine Logistik-Erfahrung im CV."
   },
   {
     "id": "stepstone-stellenangebote--Kundenbetreuer-Energiedienstleistung-m-w-d-Muenchen-Augsburg-Nuernberg-Passau-BRUNATA-METRONA-GmbH-Co-KG--14383243-inline.html",
@@ -1278,7 +1338,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Versicherungskaufmann-Kundenbetreuer-Innendienst-m-w-d-Muenchen-Ecclesia-Versicherungsdienst-GmbH--13961191-inline.html",
@@ -1299,7 +1360,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Kundenbetreuer-in-fuer-Mobilfunk-m-w-d-Garching-bei-Muenchen-spusu--13995433-inline.html",
@@ -1320,7 +1382,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Kundenberater-m-w-d-Bestandskauf-Muenchen-Fonds-Finanz-Maklerservice-GmbH--14453001-inline.html",
@@ -1341,7 +1404,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Quereinsteiger-als-Kundenserviceberater-m-w-d-Kredite-Digital-Dortmund-Muenchen-CHECK24--14287831-inline.html",
@@ -1362,7 +1426,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Kundenberater-in-m-w-d-Lohn-Gehalt-gern-Quereinstieg-Muenchen--11151048-inline.html",
@@ -1383,7 +1448,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "stepstone-stellenangebote--Mitarbeiter-Customer-Service-und-Backoffice-m-w-d-Muenchen-Huhmann-Partner--14494642-inline.html",
@@ -1404,7 +1470,8 @@
     "posted_date": null,
     "source": "stepstone",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "indeed-74ee6f9f086c7846",
@@ -1425,7 +1492,8 @@
     "posted_date": null,
     "source": "indeed",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "indeed-994caebfbc94712d",
@@ -1446,7 +1514,8 @@
     "posted_date": null,
     "source": "indeed",
     "direction_change_fit": true,
-    "category": "Versicherung"
+    "category": "Versicherung",
+    "experience_gap": null
   },
   {
     "id": "indeed-cbb11c91bae0e8a7",
@@ -1467,7 +1536,8 @@
     "posted_date": null,
     "source": "indeed",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "indeed-63a26d984c68575d",
@@ -1488,7 +1558,8 @@
     "posted_date": null,
     "source": "indeed",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": "Luftfracht-/Speditionslogistik-Fachwissen wird vorausgesetzt bzw. müsste angeeignet werden — bisher keine Logistik-Erfahrung im CV."
   },
   {
     "id": "indeed-9789379fef2c7670",
@@ -1509,7 +1580,8 @@
     "posted_date": null,
     "source": "indeed",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   },
   {
     "id": "19146-100015115198-S",
@@ -1530,7 +1602,8 @@
     "posted_date": "2026-09-19",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Customer Success"
+    "category": "Customer Success",
+    "experience_gap": null
   },
   {
     "id": "13635-ac629645_JB5246219-S",
@@ -1551,7 +1624,8 @@
     "posted_date": "2026-09-14",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Customer Success"
+    "category": "Customer Success",
+    "experience_gap": null
   },
   {
     "id": "12781-16236740-KAL-S",
@@ -1572,7 +1646,8 @@
     "posted_date": "2026-09-02",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Customer Success"
+    "category": "Customer Success",
+    "experience_gap": null
   },
   {
     "id": "10001-1003249081-S",
@@ -1593,7 +1668,8 @@
     "posted_date": "2026-06-18",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Customer Success"
+    "category": "Customer Success",
+    "experience_gap": null
   },
   {
     "id": "10001-1002471683-S",
@@ -1614,7 +1690,8 @@
     "posted_date": "2026-01-23",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Customer Success"
+    "category": "Customer Success",
+    "experience_gap": null
   },
   {
     "id": "10000-1206948940-S",
@@ -1635,6 +1712,7 @@
     "posted_date": "2026-06-24",
     "source": "ba_jobsuche",
     "direction_change_fit": true,
-    "category": "Kundenbetreuung"
+    "category": "Kundenbetreuung",
+    "experience_gap": null
   }
 ]

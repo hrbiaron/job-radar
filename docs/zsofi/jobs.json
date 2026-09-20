@@ -16,7 +16,8 @@
     "source": "ba_jobsuche",
     "direction_change_fit": false,
     "employment_type": "vollzeit",
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": "Verlangt mehrjährige Berufserfahrung im operativen Business Controlling einer Fertigungseinheit (Kostenstellen, Headcount-Reporting) — nicht vorhanden. Eine Teil-Parallele bietet die frühere Rolle als Financial Analyst (Pflicht-Jahresberichte, Finanzanalysen für Behörden), die aber keine Fertigungscontrolling-Praxis ersetzt."
   },
   {
     "id": "13183-8391-KORIAN2-S",
@@ -35,7 +36,8 @@
     "source": "ba_jobsuche",
     "direction_change_fit": false,
     "employment_type": "vollzeit",
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": "Verlangt mehrjährige Konzern-Controlling-Erfahrung inkl. IFRS und Intercompany-Themen — nicht vorhanden. Keine belastbare Parallele im CV."
   },
   {
     "id": "10001-1003387226-S",
@@ -56,7 +58,8 @@
     "salary_min": 100000,
     "salary_max": 100000,
     "employment_type": "vollzeit",
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": "Verlangt 7+ Jahre Erfahrung in Accounting/Controlling mit HGB/IFRS-Abschlüssen und Steuer-Compliance — nicht vorhanden. Keine belastbare Parallele im CV."
   },
   {
     "id": "13643-3L_617988-S",
@@ -75,7 +78,8 @@
     "source": "ba_jobsuche",
     "direction_change_fit": false,
     "employment_type": "vollzeit",
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": null
   },
   {
     "id": "10001-1003269924-S",
@@ -96,7 +100,8 @@
     "salary_min": 80000,
     "salary_max": 105000,
     "employment_type": "vollzeit",
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": "Verlangt Erfahrung in Finanzierung, Liquiditätsplanung und Beteiligungscontrolling auf Manager-Ebene — nicht vorhanden. Die SAP-S/4HANA- und BI-Erfahrung deckt nur einen Teil der Rolle ab."
   },
   {
     "id": "10000-1197966120-S",
@@ -115,6 +120,7 @@
     "source": "ba_jobsuche",
     "direction_change_fit": false,
     "employment_type": "vollzeit",
-    "category": "Controlling"
+    "category": "Controlling",
+    "experience_gap": null
   }
 ]
