@@ -84,9 +84,14 @@ def process_person(person_cfg: dict) -> None:
         job.company_summary = info["summary"]
 
     send_digest(person_cfg["email"], name, to_send)
+    # Auf die GitHub-Pages-Seite kommen ALLE bewerteten Jobs, unabhängig vom
+    # Schwellenwert — die Mail bleibt der harte Filter (nur to_send), die Seite
+    # ist zum selbst Durchstöbern/Filtern gedacht. Kununu-Anreicherung bleibt
+    # trotzdem auf to_send beschränkt (siehe Schleife oben), um das Scraping-
+    # Volumen niedrig zu halten (siehe CLAUDE.md).
     update_static_site(
         name,
-        to_send,
+        jobs,
         sync_api_url=person_cfg.get("sheets_sync_url"),
         sync_api_token=person_cfg.get("sheets_sync_token"),
     )
@@ -97,7 +102,10 @@ def process_person(person_cfg: dict) -> None:
     for job in jobs:
         mark_sent(name, job.id, job.source)
 
-    print(f"[{name}] {len(to_send)} von {len(jobs)} bewerteten Jobs verschickt und in docs/<slug>/jobs.json übernommen.")
+    print(
+        f"[{name}] {len(to_send)} von {len(jobs)} bewerteten Jobs per Mail verschickt; "
+        f"alle {len(jobs)} in docs/<slug>/jobs.json übernommen."
+    )
 
 
 def main() -> None:
