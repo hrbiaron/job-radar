@@ -8,6 +8,7 @@ und hier anpassen. Läuft der Scraper leer, ist das der erste Verdacht.
 
 from urllib.parse import urlencode
 
+import requests
 from bs4 import BeautifulSoup
 
 from .base import JobPosting
@@ -21,8 +22,16 @@ def fetch_description(url: str) -> str:
 
     Bewusst NICHT Teil von search_jobs() — bei hunderten Treffern pro Suche wäre
     das ein Extra-Request + Pause pro Job. Nur für die engere Auswahl (z.B. beim
-    Bewerten der Top-Kandidaten) gezielt aufrufen."""
-    response = polite_get(url)
+    Bewerten der Top-Kandidaten) gezielt aufrufen.
+
+    Gibt "" zurück (statt eine Exception hochzureichen), wenn die Anzeige
+    zwischenzeitlich offline ist (404/410 o.ä.) oder der Abruf sonst fehlschlägt
+    — soll einen ganzen Batch nicht wegen einer einzelnen toten Anzeige abbrechen."""
+    try:
+        response = polite_get(url)
+    except requests.RequestException as exc:
+        print(f"[stepstone] WARNUNG: Volltext für '{url}' nicht ladbar: {exc}")
+        return ""
     soup = BeautifulSoup(response.text, "lxml")
     content = soup.select_one("div[data-at='job-ad-content']")
     return content.get_text("\n", strip=True) if content else ""

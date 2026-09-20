@@ -16,10 +16,45 @@ from .backlog import DEFAULT_BATCH_SIZE, load_backlog, take_batch
 from .dedup import already_sent
 from .matching.profile_builder import build_profile
 from .sources import collect_jobs
+from .sources import ba_jobsuche, stepstone_scraper
 
 load_dotenv()
 
 PENDING_DIR = Path("data/pending_scores")
+
+# Ab dieser Zeichenlänge gilt eine Beschreibung als "zu knapp" und wird per
+# Volltext-Nachladung ergänzt (siehe enrich_descriptions()).
+MIN_DESCRIPTION_LENGTH = 200
+
+
+def enrich_descriptions(batch: list[dict]) -> None:
+    """Lädt für Jobs mit zu knapper Beschreibung den Volltext nach — nur für
+    den tatsächlichen Bewertungs-Batch (nicht für alle Rohtreffer), sonst
+    würden hunderte Extra-Requests pro Lauf anfallen.
+
+    - ba_jobsuche liefert in der Suchantwort nur eine kurze Berufsbezeichnung
+      ("hauptberuf") statt Volltext, daher hier per Zweit-Request nachgeladen.
+    - stepstone liefert in der Suchantwort gar keine Beschreibung; die
+      Volltext-Funktion existierte bereits (fetch_description()), wurde aber
+      bisher nirgends aufgerufen.
+    - indeed bewusst ausgelassen: ein Testabruf der Detailseite wurde sofort
+      von Indeads Bot-Schutz geblockt ("Security Check"). Ein Fix dafür würde
+      mehr Aufwand (Session-Warmup, ggf. Proxies) brauchen als für dieses
+      Projekt sinnvoll ist — Beschreibung bleibt dort leer, Link zur Original-
+      anzeige reicht als Fallback.
+    """
+    for job in batch:
+        description = job.get("description") or ""
+        if len(description) >= MIN_DESCRIPTION_LENGTH:
+            continue
+        if job["source"] == "ba_jobsuche":
+            full_text = ba_jobsuche.fetch_full_description(job["id"])
+        elif job["source"] == "stepstone":
+            full_text = stepstone_scraper.fetch_description(job["url"])
+        else:
+            continue
+        if full_text:
+            job["description"] = full_text
 
 
 def main() -> None:
@@ -57,6 +92,7 @@ def main() -> None:
         # Treffer) wird so nicht alles auf einmal bewertet, sondern über
         # mehrere Läufe abgearbeitet (siehe src/backlog.py).
         batch = take_batch(name, new_candidate_dicts, batch_size)
+        enrich_descriptions(batch)
         remaining_in_backlog = len(load_backlog(name))
 
         payload = {"person": name, "profile": profile, "jobs": batch}

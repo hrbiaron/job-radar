@@ -10,6 +10,7 @@ Ablauf:
   2. optional: GET .../pc/v4/jobdetails/{base64(refnr)} für Volltext-Beschreibung
 """
 
+import base64
 from datetime import date
 
 import requests
@@ -18,6 +19,28 @@ from .base import JobPosting
 
 BASE_URL = "https://rest.arbeitsagentur.de/jobboerse/jobsuche-service"
 HEADERS = {"X-API-Key": "jobboerse-jobsuche"}
+
+
+def fetch_full_description(refnr: str) -> str:
+    """Lädt die Volltext-Beschreibung eines einzelnen Treffers nach.
+
+    Die normale Suchantwort (search_jobs()) liefert in "hauptberuf" nur eine
+    kurze Berufsbezeichnung, keinen Volltext — dafür extra dieser zweite
+    Request auf /pc/v4/jobdetails/{base64(refnr)} (Feld "stellenangebotsBeschreibung").
+    Bewusst NICHT Teil von search_jobs(): bei hunderten Rohtreffern pro Suche
+    wäre das ein Extra-Request pro Treffer. Nur gezielt für die Jobs aufrufen,
+    die tatsächlich in einen Bewertungs-Batch kommen (siehe fetch_raw.py).
+    """
+    encoded = base64.b64encode(refnr.encode()).decode()
+    try:
+        response = requests.get(
+            f"{BASE_URL}/pc/v4/jobdetails/{encoded}", headers=HEADERS, timeout=15
+        )
+        response.raise_for_status()
+        return response.json().get("stellenangebotsBeschreibung", "") or ""
+    except requests.RequestException as exc:
+        print(f"[ba_jobsuche] WARNUNG: Volltext für '{refnr}' nicht ladbar: {exc}")
+        return ""
 
 
 def _parse_salary(item: dict) -> tuple[int | None, int | None]:
@@ -61,8 +84,6 @@ def search_jobs(was: str, wo: str, umkreis_km: int = 25, size: int = 50) -> list
 
     TODO:
       - Pagination beachten (Parameter `page`), falls mehr als `size` Treffer
-      - Details je Treffer per /pc/v4/jobdetails/{base64(refnr)} nachladen,
-        falls die Beschreibung aus der Suche zu knapp ist
     """
     params = {"was": was, "wo": wo, "umkreis": umkreis_km, "size": size}
     response = requests.get(f"{BASE_URL}/pc/v6/jobs", headers=HEADERS, params=params, timeout=15)
@@ -87,7 +108,7 @@ def search_jobs(was: str, wo: str, umkreis_km: int = 25, size: int = 50) -> list
                 company=item.get("firma", ""),
                 location=locations[0].get("adresse", {}).get("ort", ""),
                 url=f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{item.get('referenznummer', '')}",
-                description=item.get("hauptberuf", ""),  # TODO: durch Volltext ersetzen
+                description=item.get("hauptberuf", ""),  # nur Kurzform — Volltext holt fetch_raw.py gezielt per fetch_full_description() nach
                 posted_date=posted_date,
                 salary_min=salary_min,
                 salary_max=salary_max,

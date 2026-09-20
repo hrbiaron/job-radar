@@ -164,6 +164,11 @@
     <select id="category-filter">
       <option value="">Alle Kategorien</option>
     </select>
+    <select id="employment-filter">
+      <option value="">Vollzeit &amp; Teilzeit</option>
+      <option value="vollzeit">Nur Vollzeit</option>
+      <option value="teilzeit">Nur Teilzeit</option>
+    </select>
     <select id="sort">
       <option value="score-desc">Höchster Score zuerst</option>
       <option value="score-asc">Niedrigster Score zuerst</option>
@@ -341,6 +346,7 @@ function render() {
   const query = document.getElementById("search").value.toLowerCase();
   const sort = document.getElementById("sort").value;
   const category = document.getElementById("category-filter").value;
+  const employment = document.getElementById("employment-filter").value;
 
   updateTabCounts();
 
@@ -348,6 +354,7 @@ function render() {
     ((j.title || "") + (j.company || "") + (j.location || "")).toLowerCase().includes(query)
   );
   if (category) filtered = filtered.filter(j => (j.category || "Sonstiges") === category);
+  if (employment) filtered = filtered.filter(j => j.employment_type === employment || j.employment_type === "vollzeit_oder_teilzeit");
   filtered.sort((a, b) => sort === "score-desc" ? (b.score||0) - (a.score||0) : (a.score||0) - (b.score||0));
 
   const list = document.getElementById("list");
@@ -436,6 +443,7 @@ document.getElementById("tabs").addEventListener("click", (e) => {
 document.getElementById("search").addEventListener("input", render);
 document.getElementById("sort").addEventListener("change", render);
 document.getElementById("category-filter").addEventListener("change", render);
+document.getElementById("employment-filter").addEventListener("change", render);
 
 function populateCategoryFilter() {
   const select = document.getElementById("category-filter");
