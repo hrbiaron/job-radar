@@ -60,6 +60,10 @@
   .job-title a { color: inherit; text-decoration: none; }
   .job-title a:hover { text-decoration: underline; }
   .job-company { color: var(--text-muted); font-size: 0.88rem; margin: 0; }
+  .category-tag {
+    display: inline-block; margin-top: 6px; font-size: 0.74rem; font-weight: 600;
+    padding: 2px 8px; border-radius: 999px; background: var(--border); color: var(--text-muted);
+  }
   .badges { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
   .score {
     font-weight: 700; font-size: 0.85rem; padding: 4px 10px;
@@ -153,6 +157,9 @@
 
   <div class="controls">
     <input type="text" id="search" placeholder="Suchen (Titel, Firma, Ort)...">
+    <select id="category-filter">
+      <option value="">Alle Kategorien</option>
+    </select>
     <select id="sort">
       <option value="score-desc">Höchster Score zuerst</option>
       <option value="score-asc">Niedrigster Score zuerst</option>
@@ -326,12 +333,14 @@ function statusOptionsHtml(current) {
 function render() {
   const query = document.getElementById("search").value.toLowerCase();
   const sort = document.getElementById("sort").value;
+  const category = document.getElementById("category-filter").value;
 
   updateTabCounts();
 
   let filtered = allJobs.filter(j => tabForJob(j) === currentTab).filter(j =>
     ((j.title || "") + (j.company || "") + (j.location || "")).toLowerCase().includes(query)
   );
+  if (category) filtered = filtered.filter(j => (j.category || "Sonstiges") === category);
   filtered.sort((a, b) => sort === "score-desc" ? (b.score||0) - (a.score||0) : (a.score||0) - (b.score||0));
 
   const list = document.getElementById("list");
@@ -357,6 +366,7 @@ function render() {
         <div>
           <p class="job-title"><a href="${job.url}" target="_blank" rel="noopener">${job.title}</a></p>
           <p class="job-company">${job.company} — ${job.location}</p>
+          ${job.category ? `<span class="category-tag">${job.category}</span>` : ""}
         </div>
         <div class="badges">
           <div class="score ${scoreClass(job.score||0)}">${job.score||"?"}/100</div>
@@ -417,6 +427,16 @@ document.getElementById("tabs").addEventListener("click", (e) => {
 
 document.getElementById("search").addEventListener("input", render);
 document.getElementById("sort").addEventListener("change", render);
+document.getElementById("category-filter").addEventListener("change", render);
+
+function populateCategoryFilter() {
+  const select = document.getElementById("category-filter");
+  const current = select.value;
+  const categories = [...new Set(allJobs.map(j => j.category || "Sonstiges"))].sort((a, b) => a.localeCompare(b, "de"));
+  select.innerHTML = '<option value="">Alle Kategorien</option>' +
+    categories.map(c => `<option value="${c}">${c}</option>`).join("");
+  if (categories.includes(current)) select.value = current;
+}
 document.getElementById("refresh").addEventListener("click", async () => {
   await loadRemoteState();
   render();
@@ -502,6 +522,7 @@ function updateCommentDisplay(id) {
   try {
     const res = await fetch("jobs.json");
     allJobs = await res.json();
+    populateCategoryFilter();
   } catch (e) {
     document.getElementById("empty").style.display = "block";
     document.getElementById("empty").textContent = "Konnte jobs.json nicht laden.";
