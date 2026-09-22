@@ -43,10 +43,20 @@ def enqueue_new(person: str, candidate_dicts: list[dict]) -> list[dict]:
 
 
 def take_batch(person: str, candidate_dicts: list[dict], batch_size: int = DEFAULT_BATCH_SIZE) -> list[dict]:
-    """Hängt neue Kandidaten an den Backlog an, entnimmt vorne einen Batch zur
-    Bewertung und speichert den Rest zurück. Reihenfolge: älteste zuerst
-    (FIFO), damit kein Job dauerhaft hinten hängen bleibt."""
+    """Hängt neue Kandidaten an den Backlog an, entnimmt einen Batch zur
+    Bewertung und speichert den Rest zurück.
+
+    Reihenfolge: neuestes Veröffentlichungsdatum zuerst (posted_date), damit
+    frische Anzeigen nicht erst nach hunderten älteren Backlog-Einträgen
+    drankommen. Nur BA-Jobsuche liefert dieses Datum zuverlässig — Jobs ohne
+    Datum (Adzuna/StepStone/Indeed) werden nicht bevorzugt, sonst kämen sie
+    nie an die Reihe, sondern rutschen ans Ende, dort aber weiterhin FIFO
+    (älteste zuerst entdeckt zuerst dran), damit sie trotzdem stetig
+    abgearbeitet werden. Python sort() ist stabil, reverse=True erhält dabei
+    die urspüngliche Reihenfolge innerhalb gleicher Schlüssel (hier: alle
+    Jobs ohne Datum)."""
     full_queue = enqueue_new(person, candidate_dicts)
+    full_queue.sort(key=lambda j: j.get("posted_date") or "", reverse=True)
     batch = full_queue[:batch_size]
     remaining = full_queue[batch_size:]
     save_backlog(person, remaining)
