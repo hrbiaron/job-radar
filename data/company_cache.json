@@ -1501,5 +1501,122 @@
       "review_count": null,
       "summary": null
     }
+  },
+  "Essity": {
+    "fetched_at": 1790070075.4461029,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "afb Stellenübersicht": {
+    "fetched_at": 1790070089.2860851,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Akkodis Germany Tech Experts GmbH": {
+    "fetched_at": 1790070100.896452,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Vesterling AG": {
+    "fetched_at": 1790070115.0730455,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Labor Becker MVZ eGbR": {
+    "fetched_at": 1790070129.14546,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Lehmann Personalmanagement GmbH": {
+    "fetched_at": 1790070146.666784,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "WipflerPLAN Planungsgesellschaft mbH": {
+    "fetched_at": 1790070157.9333026,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Loginfinity AG": {
+    "fetched_at": 1790070169.3206372,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "KWA Kuratorium Wohnen im Alter gAG": {
+    "fetched_at": 1790070181.9403923,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "General Atomics AeroTec Systems GmbH": {
+    "fetched_at": 1790070196.8166945,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "DEKRA Arbeit GmbH": {
+    "fetched_at": 1790070211.836329,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "BEZIRK OBERBAYERN": {
+    "fetched_at": 1790070226.6907852,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "I.K. Hofmann GmbH": {
+    "fetched_at": 1790070241.1307607,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
   }
 }
