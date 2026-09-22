@@ -172,6 +172,8 @@
     <select id="sort">
       <option value="score-desc">Höchster Score zuerst</option>
       <option value="score-asc">Niedrigster Score zuerst</option>
+      <option value="date-desc">Neueste Anzeige zuerst</option>
+      <option value="date-asc">Älteste Anzeige zuerst</option>
     </select>
     <button class="refresh-btn" id="refresh" title="Sync-Status neu laden">🔄</button>
   </div>
@@ -355,7 +357,20 @@ function render() {
   );
   if (category) filtered = filtered.filter(j => (j.category || "Sonstiges") === category);
   if (employment) filtered = filtered.filter(j => j.employment_type === employment || j.employment_type === "vollzeit_oder_teilzeit");
-  filtered.sort((a, b) => sort === "score-desc" ? (b.score||0) - (a.score||0) : (a.score||0) - (b.score||0));
+  if (sort === "date-desc" || sort === "date-asc") {
+    // Jobs ohne Datum (v.a. Adzuna/StepStone/Indeed liefern keins) landen
+    // immer ans Ende, unabhängig von der Sortierrichtung.
+    filtered.sort((a, b) => {
+      if (!a.posted_date && !b.posted_date) return 0;
+      if (!a.posted_date) return 1;
+      if (!b.posted_date) return -1;
+      return sort === "date-desc"
+        ? new Date(b.posted_date) - new Date(a.posted_date)
+        : new Date(a.posted_date) - new Date(b.posted_date);
+    });
+  } else {
+    filtered.sort((a, b) => sort === "score-desc" ? (b.score||0) - (a.score||0) : (a.score||0) - (b.score||0));
+  }
 
   const list = document.getElementById("list");
   const empty = document.getElementById("empty");
