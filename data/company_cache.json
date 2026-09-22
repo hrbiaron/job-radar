@@ -1168,5 +1168,338 @@
       "review_count": null,
       "summary": null
     }
+  },
+  "BNP Paribas S.A.": {
+    "fetched_at": 1790065747.352808,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Deutsche Pfandbriefbank AG": {
+    "fetched_at": 1790065761.459493,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Konzern Versicherungskammer": {
+    "fetched_at": 1790065774.8248663,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "x1F GmbH": {
+    "fetched_at": 1790065789.2708426,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Forever Living Products Germany GmbH": {
+    "fetched_at": 1790065802.553011,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Boston Consulting Group": {
+    "fetched_at": 1790065818.1477172,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "CHG-MERIDIAN AG": {
+    "fetched_at": 1790065832.2369628,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "IMPACT GmbH": {
+    "fetched_at": 1790065847.6437242,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Deloitte Consulting GmbH": {
+    "fetched_at": 1790065861.597101,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "1 & 1 Mail & Media Applications SE": {
+    "fetched_at": 1790065873.137253,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "AUXILIA Rechtsschutz-Versich.-AG": {
+    "fetched_at": 1790065890.1833823,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "EY Consulting GmbH": {
+    "fetched_at": 1790065901.044366,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "PRIME HR Agentur GmbH": {
+    "fetched_at": 1790065915.141494,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Salus Haus GmbH & Co. KG": {
+    "fetched_at": 1790065930.2813168,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Astriol academics GmbH": {
+    "fetched_at": 1790065941.254718,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "PMMG Group GmbH": {
+    "fetched_at": 1790065952.847688,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "KPMG AG Wirtschaftsprüfungsgesellschaft": {
+    "fetched_at": 1790065967.1854663,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "United Internet Media GmbH": {
+    "fetched_at": 1790065981.909099,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "B&O Service SE": {
+    "fetched_at": 1790065998.1160834,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "BearingPoint GmbH": {
+    "fetched_at": 1790066014.0342853,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Computacenter AG & Co. oHG": {
+    "fetched_at": 1790066029.1740263,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "ADAC e.V.": {
+    "fetched_at": 1790066042.5098426,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "TÜV SÜD": {
+    "fetched_at": 1790066054.8409984,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Motel One GmbH": {
+    "fetched_at": 1790066068.5417442,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "EY Deutschland": {
+    "fetched_at": 1790066080.110669,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "NTT DATA Business Solutions AG": {
+    "fetched_at": 1790066091.416533,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "NTT DATA": {
+    "fetched_at": 1790066106.6165133,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Genossenschaftsverband Bayern e.V.": {
+    "fetched_at": 1790066118.2031982,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "SVS Sparkassen VersicherungsService GmbH": {
+    "fetched_at": 1790066129.5365167,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Computer Futures": {
+    "fetched_at": 1790066144.4781117,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "23DATA GmbH": {
+    "fetched_at": 1790066159.728993,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "EPAM Systems, Inc.": {
+    "fetched_at": 1790066173.998021,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "AutoScout24": {
+    "fetched_at": 1790066188.850587,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Headmatch GmbH & Co. KG": {
+    "fetched_at": 1790066202.697377,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "KNDS": {
+    "fetched_at": 1790066219.88532,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Chromsystems GmbH": {
+    "fetched_at": 1790066233.2146227,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Münchner Arbeitsgemeinschaft für Psychoanalyse M.A.P. e.V.": {
+    "fetched_at": 1790066249.1139174,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
   }
 }
