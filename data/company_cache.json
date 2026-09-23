@@ -1618,5 +1618,140 @@
       "review_count": null,
       "summary": null
     }
+  },
+  "E.ON Energie Deutschland GmbH": {
+    "fetched_at": 1790153773.0558953,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "NTT DATA Business Solutions Global Managed Services GmbH": {
+    "fetched_at": 1790153784.7371285,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "WWK Lebensversicherung a.G.": {
+    "fetched_at": 1790153800.0305204,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Hays AG": {
+    "fetched_at": 1790153815.1613433,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Flowers-Software GmbH": {
+    "fetched_at": 1790153831.182631,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Baker Tilly Holding GmbH Wirtschaftsprüfungs- gesellschaft": {
+    "fetched_at": 1790153843.5742648,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "F.G. Streifeneder KG": {
+    "fetched_at": 1790153858.3299274,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "msg life central europe gmbh": {
+    "fetched_at": 1790153872.2571857,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "ARTUS AG": {
+    "fetched_at": 1790153887.0333817,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "SIGNAL IDUNA Gruppe": {
+    "fetched_at": 1790153901.8700655,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Studierendenwerk München Oberbayern": {
+    "fetched_at": 1790153913.5140445,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "stöbichPERSONAL e.K.": {
+    "fetched_at": 1790153929.250569,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Bayerische Versorgungskammer": {
+    "fetched_at": 1790153945.293524,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Versicherungsbüro Andreas Bremm": {
+    "fetched_at": 1790153959.7484965,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
+  },
+  "Piening GmbH": {
+    "fetched_at": 1790153972.2394674,
+    "data": {
+      "rating": null,
+      "recommend_pct": null,
+      "review_count": null,
+      "summary": null
+    }
   }
 }
